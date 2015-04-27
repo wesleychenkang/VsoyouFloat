@@ -1,7 +1,6 @@
 package com.example.androidfloat;
 
 import com.vsyou.sdk.SdkManager;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,13 +10,18 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class MainActivity extends Activity implements OnClickListener {
-    private Button btn;
+	private Button btn;
+	private Button btn2;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		btn = (Button)findViewById(R.id.button1);
+		btn = (Button) findViewById(R.id.button1);
+		btn2 = (Button) findViewById(R.id.button2);
 		btn.setOnClickListener(this);
+		btn2.setOnClickListener(this);
+		// new CommonDialog(this).show();
 	}
 
 	@Override
@@ -41,9 +45,12 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View arg0) {
-		   if(arg0.getId()==R.id.button1){
-			   SdkManager.getSdkManagerInstance(this).startCenter(this);
-			   
-		   }
+		if (arg0.getId() == R.id.button1) {
+			SdkManager.getSdkManagerInstance(this).startCenter(this);
+
+		}
+		if (arg0.getId() == R.id.button2) {
+
+		}
 	}
 }

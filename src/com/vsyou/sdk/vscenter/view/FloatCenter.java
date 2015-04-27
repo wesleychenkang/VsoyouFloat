@@ -18,11 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androidfloat.R;
+import com.vsoyou.sdk.resources.ResourceLoader;
 import com.vsyou.sdk.vscenter.FloatWindowManager;
+import com.vsyou.sdk.vscenter.util.MetricUtil;
 import com.vsyou.sdk.vscenter.util.ScreenUtil;
 
 public class FloatCenter extends LinearLayout implements OnClickListener {
-	private WindowManager.LayoutParams lp;
+	private static WindowManager.LayoutParams lp;
 	private int statusBarHeight;
 	private int oldoffsetX;
 	private int oldoffsetY;
@@ -42,16 +44,15 @@ public class FloatCenter extends LinearLayout implements OnClickListener {
 
 	private void initView(Context ctx) {
 		setOrientation(HORIZONTAL);
-		setBackgroundColor(Color.RED);
-		setPadding(0, 15, 0, 15);
+		//setBackgroundColor(Color.RED);
+		//setPadding(0, 15, 0, 15);
 		imag = new ImageView(ctx);
-		imag.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.ic_launcher));
-		// btn.setId(100005);
-		// btn.setOnClickListener(this);
-
+		imag.setBackgroundDrawable(ResourceLoader.getBitmapDrawable("logo.png"));
+		//imag.setPadding(15, 15, 15, 15);
 		LayoutParams lbtn = new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
+//		lbtn.height = MetricUtil.getDip(getContext(), 50);
+//		lbtn.width =MetricUtil.getDip(getContext(), 50);
 		lbtn.gravity = Gravity.CENTER;
 		addView(imag, lbtn);
 	}
@@ -75,10 +76,13 @@ public class FloatCenter extends LinearLayout implements OnClickListener {
 			lastY = y;
 			break;
 		case MotionEvent.ACTION_MOVE:
+			int move = (int) (x - lastX);
+			System.out.println("move" + move);
 			lp.x += (int) (x - lastX);
 			lp.y += (int) (y - lastY);
 			tag = 1;
-			updatePostion();
+			if (Math.abs(move) > 2)
+				updatePostion();
 			break;
 		case MotionEvent.ACTION_UP:
 
@@ -100,11 +104,13 @@ public class FloatCenter extends LinearLayout implements OnClickListener {
 		System.out.println(" lp.x " + x + "with"
 				+ ScreenUtil.getWith(getContext()));
 		if (lp.x > 0) {
-			FloatWindowManager.createCenterLeftView(getContext());
-			FloatWindowManager.removeCenterView(getContext());
+			FloatWindowManager.disPlayLeftView(getContext());
+			// FloatWindowManager.createCenterLeftView(getContext());
+			// FloatWindowManager.removeCenterView(getContext());
 		} else {
-			FloatWindowManager.createCenterRightView(getContext());
-			FloatWindowManager.removeCenterView(getContext());
+			FloatWindowManager.disPlayRightView(getContext());
+			// FloatWindowManager.createCenterRightView(getContext());
+			// FloatWindowManager.removeCenterView(getContext());
 
 		}
 

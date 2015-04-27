@@ -2,6 +2,7 @@ package com.vsyou.sdk.vscenter.view;
 import java.lang.reflect.Field;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -40,6 +41,7 @@ public class FloatCenterLeftView extends LinearLayout implements OnClickListener
 	
 	private void initView(Context ctx){
 		setOrientation(HORIZONTAL);
+		setVisibility(View.GONE);
 		LinearLayout  ll_forum = new LinearLayout(ctx);
 		ll_forum.setOrientation(VERTICAL);
 		ll_forum.setId(100001);
@@ -72,7 +74,7 @@ public class FloatCenterLeftView extends LinearLayout implements OnClickListener
 	    ll_person.addView(image1);
 	    
 	    TextView txt = new TextView(ctx);
-	    txt.setText("个人");
+	    txt.setText("个人中心");
 	    ll_person.addView(txt,ll_txt);
 	    LayoutParams ll_person_prams = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 		ll_forum_prams.setMargins(5, 0, 5, 0);
@@ -199,8 +201,8 @@ public class FloatCenterLeftView extends LinearLayout implements OnClickListener
 	private void updatePostion(){
 //		WindowManager manager = (WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);
 //		manager.updateViewLayout(this, lp);
-		FloatWindowManager.createCenterView(getContext());
-		FloatWindowManager.removeCenterLeftView(getContext());
+	//	FloatWindowManager.createCenterView(getContext());
+		FloatWindowManager.disPlayCenterView(getContext(),1);
 		
 	}
 //	private void updateView(){
@@ -280,10 +282,18 @@ public class FloatCenterLeftView extends LinearLayout implements OnClickListener
 			break;
 		case 100004:
 			Toast.makeText(getContext(), "个人", Toast.LENGTH_SHORT).show();
-			showPopuWindow(getContext());
+//			showPopuWindow(getContext());
+//			FloatWindowManager.disPlayPersonView(getContext());
+			
+			Intent intent = new Intent("android.intent.action.PersonCenterActivity");
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			getContext().getApplicationContext().startActivity(intent);
+			FloatWindowManager.hideFloatView(getContext());
+			
 			break;
 		case 100005:
 			Toast.makeText(getContext(), "中心", Toast.LENGTH_SHORT).show();
+			
 			
 //			hideView();//
 			break;

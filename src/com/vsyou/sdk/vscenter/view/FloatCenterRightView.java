@@ -2,6 +2,7 @@ package com.vsyou.sdk.vscenter.view;
 import java.lang.reflect.Field;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -40,7 +41,7 @@ public class FloatCenterRightView extends LinearLayout implements OnClickListene
 	
 	private void initView(Context ctx){
 		setOrientation(HORIZONTAL);
-
+        setVisibility(View.GONE);
 	    LinearLayout l = new LinearLayout(ctx);
 		l.setBackgroundColor(Color.RED);
 		l.setPadding(0, 15, 0, 15);
@@ -87,7 +88,7 @@ public class FloatCenterRightView extends LinearLayout implements OnClickListene
 	    ll_person.addView(image1);
 	    
 	    TextView txt = new TextView(ctx);
-	    txt.setText("个人");
+	    txt.setText("个人中心");
 	    ll_person.addView(txt,ll_txt);
 	    LayoutParams ll_person_prams = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 		ll_forum_prams.setMargins(5, 0, 5, 0);
@@ -173,8 +174,9 @@ public class FloatCenterRightView extends LinearLayout implements OnClickListene
 	}
 	
 	private void updatePostion(){
-		FloatWindowManager.createCenterView(getContext());
-		FloatWindowManager.removeCenterRightView(getContext());
+		//FloatWindowManager.createCenterView(getContext());
+		
+		FloatWindowManager.disPlayCenterView(getContext(),0);
 		
 	}
 
@@ -202,7 +204,10 @@ public class FloatCenterRightView extends LinearLayout implements OnClickListene
 			break;
 		case 100004:
 			Toast.makeText(getContext(), "个人", Toast.LENGTH_SHORT).show();
-			showPopuWindow(getContext());
+			Intent intent = new Intent("android.intent.action.PersonCenterActivity");
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			getContext().getApplicationContext().startActivity(intent);
+			FloatWindowManager.hideFloatView(getContext());
 			break;
 		case 100005:
 			Toast.makeText(getContext(), "中心", Toast.LENGTH_SHORT).show();
