@@ -68,6 +68,8 @@ public abstract class BaseLayout extends LinearLayout implements
 
 	@Override
 	public void onClick(View v) {
+		
+		
 
 	}
 
