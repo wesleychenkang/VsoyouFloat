@@ -1,4 +1,4 @@
-package com.vsyou.sdk.vscenter.view;
+package com.vsoyou.sdk.vscenter.view;
 import java.lang.reflect.Field;
 
 import android.content.Context;
@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androidfloat.R;
-import com.vsyou.sdk.vscenter.FloatWindowManager;
+import com.vsoyou.sdk.vscenter.FloatWindowManager;
 
 public class FloatCenterRightView extends LinearLayout implements OnClickListener {
 	private WindowManager.LayoutParams lp;

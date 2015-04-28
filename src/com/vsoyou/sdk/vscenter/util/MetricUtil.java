@@ -1,4 +1,4 @@
-package com.vsyou.sdk.vscenter.util;
+package com.vsoyou.sdk.vscenter.util;
 
 import android.content.Context;
 import android.util.TypedValue;

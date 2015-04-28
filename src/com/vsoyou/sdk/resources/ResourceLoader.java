@@ -6,7 +6,7 @@ import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
-import com.vsyou.sdk.vscenter.util.LogUtil;
+import com.vsoyou.sdk.vscenter.util.LogUtil;
 
 /**
  * 图片资源文件导入

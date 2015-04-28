@@ -1,6 +1,6 @@
-package com.vsyou.sdk;
+package com.vsoyou.sdk;
 
-import com.vsyou.sdk.vscenter.FloatService;
+import com.vsoyou.sdk.vscenter.FloatService;
 
 import android.app.Activity;
 import android.content.Context;

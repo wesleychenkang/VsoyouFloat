@@ -1,4 +1,4 @@
-package com.vsyou.sdk.vscenter.view;
+package com.vsoyou.sdk.vscenter.view;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.androidfloat.R;
-import com.vsyou.sdk.vscenter.person.PersonCenter;
+import com.vsoyou.sdk.vscenter.person.PersonCenter;
 
 public class FloatCenterPresonView extends LinearLayout {
 

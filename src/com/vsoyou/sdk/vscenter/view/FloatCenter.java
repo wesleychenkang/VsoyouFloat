@@ -1,27 +1,20 @@
-package com.vsyou.sdk.vscenter.view;
+package com.vsoyou.sdk.vscenter.view;
 
 import java.lang.reflect.Field;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.androidfloat.R;
-import com.vsoyou.sdk.resources.ResourceLoader;
-import com.vsyou.sdk.vscenter.FloatWindowManager;
-import com.vsyou.sdk.vscenter.util.MetricUtil;
-import com.vsyou.sdk.vscenter.util.ScreenUtil;
+import com.vsoyou.sdk.vscenter.FloatWindowManager;
+import com.vsoyou.sdk.vscenter.util.BitmapCache;
 
 public class FloatCenter extends LinearLayout implements OnClickListener {
 	private static WindowManager.LayoutParams lp;
@@ -44,17 +37,18 @@ public class FloatCenter extends LinearLayout implements OnClickListener {
 
 	private void initView(Context ctx) {
 		setOrientation(HORIZONTAL);
-		//setBackgroundColor(Color.RED);
-		//setPadding(0, 15, 0, 15);
+		FrameLayout lay = new FrameLayout(ctx);
+		ImageView back_round = new ImageView(ctx);
+		back_round.setBackgroundDrawable(BitmapCache.getDrawable(ctx,
+				"cricle.png"));
+		lay.addView(back_round);
+
 		imag = new ImageView(ctx);
-		imag.setBackgroundDrawable(ResourceLoader.getBitmapDrawable("logo.png"));
-		//imag.setPadding(15, 15, 15, 15);
-		LayoutParams lbtn = new LayoutParams(LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT);
-//		lbtn.height = MetricUtil.getDip(getContext(), 50);
-//		lbtn.width =MetricUtil.getDip(getContext(), 50);
-		lbtn.gravity = Gravity.CENTER;
-		addView(imag, lbtn);
+		imag.setBackgroundDrawable(BitmapCache.getDrawable(ctx, "logo.png"));
+		lay.addView(imag, new FrameLayout.LayoutParams(
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
+				Gravity.CENTER));
+		addView(lay);
 	}
 
 	public void setMangerLayParams(WindowManager.LayoutParams lp) {
@@ -77,7 +71,6 @@ public class FloatCenter extends LinearLayout implements OnClickListener {
 			break;
 		case MotionEvent.ACTION_MOVE:
 			int move = (int) (x - lastX);
-			System.out.println("move" + move);
 			lp.x += (int) (x - lastX);
 			lp.y += (int) (y - lastY);
 			tag = 1;
@@ -85,14 +78,12 @@ public class FloatCenter extends LinearLayout implements OnClickListener {
 				updatePostion();
 			break;
 		case MotionEvent.ACTION_UP:
-
 			int newoffsetX = lp.x;
 			int newoffsetY = lp.y;
 			if (oldoffsetX == newoffsetX && oldoffsetY == newoffsetY) {
 				updateView(oldoffsetX, oldoffsetY);
 			} else {
 				tag = 0;
-
 			}
 			break;
 
@@ -101,17 +92,10 @@ public class FloatCenter extends LinearLayout implements OnClickListener {
 	}
 
 	private void updateView(int x, int y) {
-		System.out.println(" lp.x " + x + "with"
-				+ ScreenUtil.getWith(getContext()));
 		if (lp.x > 0) {
 			FloatWindowManager.disPlayLeftView(getContext());
-			// FloatWindowManager.createCenterLeftView(getContext());
-			// FloatWindowManager.removeCenterView(getContext());
 		} else {
 			FloatWindowManager.disPlayRightView(getContext());
-			// FloatWindowManager.createCenterRightView(getContext());
-			// FloatWindowManager.removeCenterView(getContext());
-
 		}
 
 	}

@@ -1,4 +1,4 @@
-package com.vsyou.sdk.vscenter.util;
+package com.vsoyou.sdk.vscenter.util;
 
 import android.util.Log;
 public class LogUtil {

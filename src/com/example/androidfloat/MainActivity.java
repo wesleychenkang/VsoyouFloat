@@ -1,6 +1,7 @@
 package com.example.androidfloat;
 
-import com.vsyou.sdk.SdkManager;
+import com.vsoyou.sdk.SdkManager;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;

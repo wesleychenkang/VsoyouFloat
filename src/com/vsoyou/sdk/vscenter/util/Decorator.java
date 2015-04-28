@@ -1,4 +1,4 @@
-package com.vsyou.sdk.vscenter.util;
+package com.vsoyou.sdk.vscenter.util;
 
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;

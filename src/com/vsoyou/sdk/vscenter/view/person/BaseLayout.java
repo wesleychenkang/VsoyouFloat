@@ -1,4 +1,4 @@
-package com.vsyou.sdk.vscenter.view;
+package com.vsoyou.sdk.vscenter.view.person;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -7,11 +7,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.vsoyou.sdk.resources.ResFontSize;
-import com.vsyou.sdk.vscenter.util.MetricUtil;
+import com.vsoyou.sdk.vscenter.util.MetricUtil;
 
 public abstract class BaseLayout extends LinearLayout implements
 		OnClickListener {
@@ -62,9 +63,11 @@ public abstract class BaseLayout extends LinearLayout implements
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
 				Gravity.CENTER));
 
-		ImageButton back = new ImageButton(context);
+		ImageView back = new ImageView(context);
+		
 
 	}
+	
 
 	@Override
 	public void onClick(View v) {

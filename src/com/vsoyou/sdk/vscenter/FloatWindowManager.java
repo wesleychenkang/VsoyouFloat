@@ -1,4 +1,4 @@
-package com.vsyou.sdk.vscenter;
+package com.vsoyou.sdk.vscenter;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
@@ -8,10 +8,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 
-import com.vsyou.sdk.vscenter.view.FloatCenter;
-import com.vsyou.sdk.vscenter.view.FloatCenterLeftView;
-import com.vsyou.sdk.vscenter.view.FloatCenterPresonView;
-import com.vsyou.sdk.vscenter.view.FloatCenterRightView;
+import com.vsoyou.sdk.vscenter.view.FloatCenter;
+import com.vsoyou.sdk.vscenter.view.FloatCenterLeftView;
+import com.vsoyou.sdk.vscenter.view.FloatCenterPresonView;
+import com.vsoyou.sdk.vscenter.view.FloatCenterRightView;
 
 public class FloatWindowManager {
 	private static FloatCenter center;

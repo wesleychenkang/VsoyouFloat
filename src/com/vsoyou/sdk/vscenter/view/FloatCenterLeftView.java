@@ -1,6 +1,7 @@
-package com.vsyou.sdk.vscenter.view;
+package com.vsoyou.sdk.vscenter.view;
 import java.lang.reflect.Field;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,15 +12,20 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.LinearLayout.LayoutParams;
 
 import com.example.androidfloat.R;
-import com.vsyou.sdk.vscenter.FloatWindowManager;
+import com.vsoyou.sdk.vscenter.FloatWindowManager;
+import com.vsoyou.sdk.vscenter.util.BitmapCache;
+import com.vsoyou.sdk.vscenter.util.MetricUtil;
 
+@SuppressLint("NewApi")
 public class FloatCenterLeftView extends LinearLayout implements OnClickListener {
 	private WindowManager.LayoutParams lp;
 	private int statusBarHeight;
@@ -42,20 +48,26 @@ public class FloatCenterLeftView extends LinearLayout implements OnClickListener
 	private void initView(Context ctx){
 		setOrientation(HORIZONTAL);
 		setVisibility(View.GONE);
+		setBackgroundDrawable(BitmapCache.getDrawable(ctx, "block_left.png"));
 		LinearLayout  ll_forum = new LinearLayout(ctx);
 		ll_forum.setOrientation(VERTICAL);
+		ll_forum.setGravity(Gravity.CENTER_VERTICAL);
 		ll_forum.setId(100001);
-		ll_forum.setPadding(20, 0, 20, 0);
+		//ll_forum.setPadding(20, 0, 20, 0);
 		 
 		ImageView image_forum = new ImageView(ctx);
-		image_forum.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_launcher));
-		ll_forum.addView(image_forum);
+		image_forum.setBackgroundDrawable(BitmapCache.getDrawable(ctx, "forum.png"));
+		LayoutParams lp_image_forum =  new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+		lp_image_forum.gravity = Gravity.CENTER_HORIZONTAL;
+		ll_forum.addView(image_forum,lp_image_forum);
 		image_forum.setId(100002);
 		image_forum.setOnClickListener(this);
 		
 		TextView txt_forum = new TextView(ctx);
 		txt_forum.setText("论坛");
+		txt_forum.setPadding(0, MetricUtil.getDip(ctx, 10), 0, 0);
 		txt_forum.setId(1000021);
+		//txt_forum.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, getResources().getDrawable(R.drawable.ic_launcher));
 		LayoutParams ll_txt = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
 		ll_txt.gravity = Gravity.CENTER;
 		ll_forum.addView(txt_forum,ll_txt);
@@ -66,34 +78,47 @@ public class FloatCenterLeftView extends LinearLayout implements OnClickListener
 		
 		LinearLayout ll_person = new LinearLayout(ctx);
 		ll_person.setOrientation(VERTICAL);
+		ll_person.setGravity(Gravity.CENTER_VERTICAL);
 		ll_person.setId(100003);
 	    ImageView image1= new ImageView(ctx);
 	    image1.setId(100004);
 	    image1.setOnClickListener(this);
-	    image1.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_launcher));
-	    ll_person.addView(image1);
+	    image1.setBackgroundDrawable(BitmapCache.getDrawable(ctx, "person.png"));
+	    LayoutParams lp_image1 =  new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+	    lp_image1.gravity = Gravity.CENTER_HORIZONTAL;
+	    ll_person.addView(image1,lp_image1);
 	    
 	    TextView txt = new TextView(ctx);
+	    
 	    txt.setText("个人中心");
+	    txt.setPadding(0, MetricUtil.getDip(ctx, 10), 0, 0);
 	    ll_person.addView(txt,ll_txt);
 	    LayoutParams ll_person_prams = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
-		ll_forum_prams.setMargins(5, 0, 5, 0);
+		ll_forum_prams.setMargins(MetricUtil.getDip(ctx, 5), 0, MetricUtil.getDip(ctx, 5), 0);
 		ll_person_prams.weight = 0.3f;
 	    addView(ll_person,ll_person_prams);
 	    
 	    
 	    LinearLayout l = new LinearLayout(ctx);
-		l.setBackgroundColor(Color.RED);
-		l.setPadding(0, 15, 0, 15);
+		//l.setBackgroundColor(Color.RED);
+		
+		
+		FrameLayout lay = new FrameLayout(ctx);
+	    ImageView back_round = new ImageView(ctx);
+	    back_round.setBackgroundDrawable(BitmapCache.getDrawable(ctx, "cricle.png"));
+	    lay.addView(back_round);
+	    
 		imag = new ImageView(ctx);
-		imag.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_launcher));
+	    imag.setBackgroundDrawable(BitmapCache.getDrawable(ctx, "logo.png"));
+	    lay.addView(imag,new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,Gravity.CENTER));
+	   
 		//btn.setId(100005);
 		//btn.setOnClickListener(this);
 		
 		
 		LayoutParams lbtn = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
 		lbtn.gravity = Gravity.CENTER;
-		l.addView(imag,lbtn);
+		l.addView(lay,lbtn);
 		LayoutParams ll_btn_prams = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 		ll_btn_prams.weight = 0.3f;
 		addView(l,ll_btn_prams);

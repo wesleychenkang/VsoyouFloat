@@ -1,4 +1,4 @@
-package com.vsyou.sdk.vscenter;
+package com.vsoyou.sdk.vscenter;
 
 import android.app.Service;
 import android.content.Intent;
