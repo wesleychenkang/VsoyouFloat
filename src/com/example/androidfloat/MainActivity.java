@@ -19,9 +19,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		btn = (Button) findViewById(R.id.button1);
-		btn2 = (Button) findViewById(R.id.button2);
 		btn.setOnClickListener(this);
-		btn2.setOnClickListener(this);
 		// new CommonDialog(this).show();
 	}
 
@@ -48,9 +46,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View arg0) {
 		if (arg0.getId() == R.id.button1) {
 			SdkManager.getSdkManagerInstance(this).startCenter(this);
-
-		}
-		if (arg0.getId() == R.id.button2) {
 
 		}
 	}

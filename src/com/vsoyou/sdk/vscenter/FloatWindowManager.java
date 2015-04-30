@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 
+import com.vsoyou.sdk.vscenter.util.MetricUtil;
 import com.vsoyou.sdk.vscenter.view.FloatCenter;
 import com.vsoyou.sdk.vscenter.view.FloatCenterLeftView;
 import com.vsoyou.sdk.vscenter.view.FloatCenterPresonView;
@@ -24,7 +25,7 @@ public class FloatWindowManager {
 	private static WindowManager.LayoutParams personParams;
 	private static int x;
 	private static int y;
-
+    private static final int  OFFSET = 57;
 	/**
 	 * 创建浮窗中心页面
 	 * 
@@ -59,6 +60,7 @@ public class FloatWindowManager {
 		}
 		center.setMangerLayParams(centerParams);
 		// }
+		
 		createCenterRightView(ctx);
 		createCenterLeftView(ctx);
 		//createCenterPersonView(ctx);
@@ -89,7 +91,9 @@ public class FloatWindowManager {
 		leftParams.type = LayoutParams.TYPE_PHONE;
 		leftParams.width = LayoutParams.WRAP_CONTENT;
 		leftParams.height = LayoutParams.WRAP_CONTENT;
-		leftParams.x = centerParams.x - 80;
+		System.out.println("centerParams.x=="+centerParams.x);
+		leftParams.x = centerParams.x - MetricUtil.getDip(ctx,100);
+		System.out.println("leftParams.x=="+leftParams.x);
 		leftParams.y = centerParams.y;
 
 		// }
@@ -155,17 +159,17 @@ public class FloatWindowManager {
 		centerLeft.setVisibility(View.GONE);
 		centerRight.setVisibility(View.VISIBLE);
 		center.setVisibility(View.GONE);
-		centerParams.x = centerParams.x + 80;
+		centerParams.x = centerParams.x + MetricUtil.getDip(ctx, OFFSET);;
 		manager.updateViewLayout(centerRight, centerParams);
 
 	}
 
 	public static void disPlayLeftView(Context ctx) {
 		WindowManager manager = getWindowManger(ctx);
-		centerRight.setVisibility(View.GONE);
+		centerRight.setVisibility(View.INVISIBLE);
 		centerLeft.setVisibility(View.VISIBLE);
-		center.setVisibility(View.GONE);
-		centerParams.x = centerParams.x - 80;
+		center.setVisibility(View.INVISIBLE);
+		centerParams.x = centerParams.x - MetricUtil.getDip(ctx, OFFSET);
 		manager.updateViewLayout(centerLeft, centerParams);
 
 	}
@@ -184,9 +188,9 @@ public class FloatWindowManager {
 //		centerPerson.setVisibility(View.GONE);
 		center.setVisibility(View.VISIBLE);
 		if (place == 0) {
-			centerParams.x = centerParams.x - 80;
+			centerParams.x = centerParams.x - MetricUtil.getDip(ctx, OFFSET);
 		} else if(place ==1) {
-			centerParams.x = centerParams.x + 80;
+			centerParams.x = centerParams.x + MetricUtil.getDip(ctx, OFFSET);
 
 		}else{
 			

@@ -1,16 +1,20 @@
 package com.vsoyou.sdk.vscenter.activity;
 
+import java.util.Stack;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+
 import com.vsoyou.sdk.ParamChain;
 import com.vsoyou.sdk.vscenter.FloatWindowManager;
 import com.vsoyou.sdk.vscenter.ParamChainImpl;
+import com.vsoyou.sdk.vscenter.view.person.PersonLayoutView;
 
 public class PersonCenterActivity extends Activity {
 	private static ParamChain ROOT_ENV;
-
+    private Stack mStack ;
 	public static final synchronized ParamChain GET_GLOBAL_PARAM_CHAIN() {
 		if (ROOT_ENV == null) {
 			ROOT_ENV = ParamChainImpl.GLOBAL().grow(
@@ -26,6 +30,7 @@ public class PersonCenterActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(new PersonLayoutView(getApplicationContext()));
 	}
 
 	@Override

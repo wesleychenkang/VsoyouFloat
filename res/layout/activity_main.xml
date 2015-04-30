@@ -7,6 +7,13 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.androidfloat.MainActivity" >
+    
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         >
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
@@ -14,21 +21,20 @@
         android:layout_below="@+id/textView1"
         android:layout_alignParentRight="false"
         android:text="个人中心" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
+    
+    
+    
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/linearlayout2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:text="测试时使用"
-   ></Button>
+        android:background="@drawable/device"
+         >
+     </LinearLayout>
+    
+   
+</LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button1"
-        android:layout_marginTop="90dp"
-        android:src="@drawable/logo" />
 
 </RelativeLayout>

@@ -8,6 +8,14 @@ import com.vsoyou.sdk.vscenter.activity.PersonCenterActivity;
 
 public class PersonCenterManager {
 	 private  ParamChain ev;
+	 private  static PersonCenterManager personManager;
+	 public static PersonCenterManager getInstance(){
+		 if(personManager==null){
+			 personManager = new PersonCenterManager();
+		 }
+		 return personManager;
+		 
+	 }
 	 private  PersonCenterManager(){
 		 ev = PersonCenterActivity.GET_GLOBAL_PARAM_CHAIN();
 	 }

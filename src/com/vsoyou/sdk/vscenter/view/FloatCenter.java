@@ -58,32 +58,31 @@ public class FloatCenter extends LinearLayout implements OnClickListener {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		float x = event.getX();
-		float y = event.getY();
-		if (tag == 0) {
-			oldoffsetX = lp.x;
-			oldoffsetY = lp.y;
-		}
+		oldoffsetX = lp.x;
+		oldoffsetY = lp.y - getStatusBarHeight();
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
-			lastX = x;
-			lastY = y;
+			lastX = event.getX();
+			lastY = event.getY() - getStatusBarHeight();
 			break;
 		case MotionEvent.ACTION_MOVE:
-			int move = (int) (x - lastX);
+			float x = event.getX();
+			float y = event.getY() - getStatusBarHeight();
+			int moveX = (int) (x - lastX);
+			int moveY = (int) (y-lastY);
+			
+			tag = 1;
+			if (Math.abs(moveX) > 5&&Math.abs(moveY)>5){
 			lp.x += (int) (x - lastX);
 			lp.y += (int) (y - lastY);
-			tag = 1;
-			if (Math.abs(move) > 2)
 				updatePostion();
+			}
 			break;
 		case MotionEvent.ACTION_UP:
-			int newoffsetX = lp.x;
-			int newoffsetY = lp.y;
-			if (oldoffsetX == newoffsetX && oldoffsetY == newoffsetY) {
+			float newoffsetX = event.getX();
+			float newoffsetY = event.getY() - getStatusBarHeight();
+			if (lastX == newoffsetX && lastY == newoffsetY) {
 				updateView(oldoffsetX, oldoffsetY);
-			} else {
-				tag = 0;
 			}
 			break;
 
