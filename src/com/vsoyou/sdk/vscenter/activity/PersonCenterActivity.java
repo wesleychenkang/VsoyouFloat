@@ -30,7 +30,7 @@ public class PersonCenterActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		setContentView(new PersonLayoutView(getApplicationContext()));
+		setContentView(new PersonLayoutView(getApplicationContext(),null));
 	}
 
 	@Override

@@ -2,7 +2,6 @@ package com.vsoyou.sdk.vscenter.view;
 
 import java.lang.reflect.Field;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -21,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.androidfloat.R;
 import com.vsoyou.sdk.vscenter.FloatWindowManager;
+import com.vsoyou.sdk.vscenter.PersonCenterManager;
 import com.vsoyou.sdk.vscenter.util.BitmapCache;
 import com.vsoyou.sdk.vscenter.util.MetricUtil;
 
@@ -51,7 +51,6 @@ public class FloatCenterLeftView extends LinearLayout implements
 				LayoutParams.WRAP_CONTENT);
 		lp_ll.width = MetricUtil.getDip(ctx, 180);
 		addView(all, lp_ll);
-		// ×ó±ßµÄ°ëÔÂ±³¾° ¸öÈËÖĞĞÄ ºÍÂÛÌ³
 		LinearLayout l_left = new LinearLayout(ctx);
 		l_left.setBackgroundDrawable(BitmapCache.getDrawable(ctx,
 				"float_left.png"));
@@ -63,7 +62,7 @@ public class FloatCenterLeftView extends LinearLayout implements
 		all.addView(l_left, lp_lleft);
 		l_left.setOrientation(HORIZONTAL);
 
-		// ¸öÈËÖĞĞÄ²¼¾Ö
+		// ä¸ªäººä¸­å¿ƒ
 		LinearLayout ll_person = new LinearLayout(ctx);
 		ll_person.setOrientation(VERTICAL);
 		ll_person.setGravity(Gravity.CENTER_VERTICAL);
@@ -78,7 +77,7 @@ public class FloatCenterLeftView extends LinearLayout implements
 		ll_person.addView(image1, lp_image1);
 
 		TextView txt = new TextView(ctx);
-		txt.setText("¸öÈËÖĞĞÄ");
+		txt.setText("ä¸ªäººä¸­å¿ƒ");
 		txt.setTextSize(MetricUtil.getDip(ctx, 6));
 		LayoutParams ll_txt_person = new LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -89,7 +88,7 @@ public class FloatCenterLeftView extends LinearLayout implements
 		ll_person_prams.weight = 0.5f;
 		l_left.addView(ll_person, ll_person_prams);
 
-		// ÂÛÌ³²¼¾Ö
+		// è®ºå›
 		LinearLayout ll_forum = new LinearLayout(ctx);
 		ll_forum.setOrientation(VERTICAL);
 		ll_forum.setGravity(Gravity.LEFT);
@@ -108,7 +107,7 @@ public class FloatCenterLeftView extends LinearLayout implements
 		image_forum.setOnClickListener(this);
 
 		TextView txt_forum = new TextView(ctx);
-		txt_forum.setText("ÂÛÌ³");
+		txt_forum.setText("è®ºå›");
 		txt_forum.setTextSize(MetricUtil.getDip(ctx, 6));
 		txt_forum.setId(1000021);
 		LayoutParams lp_txt_forum = new LayoutParams(LayoutParams.WRAP_CONTENT,
@@ -201,7 +200,7 @@ public class FloatCenterLeftView extends LinearLayout implements
 		// break;
 		// case MotionEvent.ACTION_UP:
 		// if(downXInScreen==xInScreen && downYInScreen == yInScreen){
-		// Toast.makeText(getContext(), "µã»÷µ½ÎÒÁË", Toast.LENGTH_LONG).show();
+		// Toast.makeText(getContext(), "é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿï¿½", Toast.LENGTH_LONG).show();
 		// hideView();
 		// }
 		// break;
@@ -225,7 +224,7 @@ public class FloatCenterLeftView extends LinearLayout implements
 		image_forum.setOnClickListener(this);
 
 		TextView txt_forum = new TextView(ctx);
-		txt_forum.setText("ÂÛÌ³asdfsadfsdaf");
+		txt_forum.setText("é”Ÿæ–¤æ‹·å›asdfsadfsdaf");
 		LayoutParams ll_txt = new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
 		ll_txt.gravity = Gravity.CENTER;
@@ -233,7 +232,7 @@ public class FloatCenterLeftView extends LinearLayout implements
 
 		PopupWindow window = new PopupWindow(ll_forum);
 		// window.showAtLocation(imag, Gravity.LEFT, 0, 0);
-		System.out.println("µ÷ÓÃÁË");
+		System.out.println("é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·");
 		window.showAsDropDown(this);
 
 	}
@@ -318,22 +317,12 @@ public class FloatCenterLeftView extends LinearLayout implements
 			ly.addView(btn);
 			PopupWindow window = new PopupWindow(ly);
 			window.showAsDropDown(this);
-			Toast.makeText(getContext(), "ÂÛÌ³", Toast.LENGTH_SHORT).show();
 			break;
 		case 100004:
-			Toast.makeText(getContext(), "¸öÈË", Toast.LENGTH_SHORT).show();
-			// showPopuWindow(getContext());
-			// FloatWindowManager.disPlayPersonView(getContext());
-
-			Intent intent = new Intent(
-					"android.intent.action.PersonCenterActivity");
-			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			getContext().getApplicationContext().startActivity(intent);
 			FloatWindowManager.hideFloatView(getContext());
-
+            PersonCenterManager.getInstance().startPersonCenter(getContext());
 			break;
 		case 100005:
-			Toast.makeText(getContext(), "ÖĞĞÄ", Toast.LENGTH_SHORT).show();
 
 			// hideView();//
 			break;

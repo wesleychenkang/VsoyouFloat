@@ -26,7 +26,7 @@ public class PersonCenterManager {
 	 * @return
 	 */
     private  boolean  startPersonCenter(Context ctx,ParamChain chain){
-    	Intent intent = new Intent("com.vsoyou.sdk.vscenter.activity.PersonCenterActivity");
+    	Intent intent = new Intent("com.vsoyou.sdk.activity.personcenter");
     	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     	ctx.getApplicationContext().startActivity(intent);
     	FloatWindowManager.hideFloatView(ctx);
