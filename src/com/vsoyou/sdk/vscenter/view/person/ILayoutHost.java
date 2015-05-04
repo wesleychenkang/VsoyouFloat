@@ -22,9 +22,9 @@ public interface ILayoutHost {
 	/**
 	 * Ω¯»Î“≥√Ê
 	 */
-	public void enter(ParamChain chain);
+	public void enter(ParamChain chain,ClassLoader loader,String name);
 	
-	
+	public void enter(ParamChain chain,int type);
 	public void addActivityControl(ActivityControlInterface control);
    
 	public void  removeActivityControl(ActivityControlInterface control);

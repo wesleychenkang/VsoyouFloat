@@ -25,7 +25,8 @@ public class FloatWindowManager {
 	private static WindowManager.LayoutParams personParams;
 	private static int x;
 	private static int y;
-    private static final int  OFFSET = 57;
+	private static final int OFFSET = 57;
+
 	/**
 	 * 创建浮窗中心页面
 	 * 
@@ -60,20 +61,12 @@ public class FloatWindowManager {
 		}
 		center.setMangerLayParams(centerParams);
 		// }
-		
+
 		createCenterRightView(ctx);
 		createCenterLeftView(ctx);
-		//createCenterPersonView(ctx);
+		// createCenterPersonView(ctx);
 		manager.addView(center, centerParams);
 	}
-
-	// public static void removeCenterView(Context ctx) {
-	// WindowManager manager = getWindowManger(ctx);
-	// if (center != null) {
-	// manager.removeView(center);
-	// center = null;
-	// }
-	// }
 
 	/**
 	 * 创建左边显示的页面
@@ -91,9 +84,9 @@ public class FloatWindowManager {
 		leftParams.type = LayoutParams.TYPE_PHONE;
 		leftParams.width = LayoutParams.WRAP_CONTENT;
 		leftParams.height = LayoutParams.WRAP_CONTENT;
-		System.out.println("centerParams.x=="+centerParams.x);
-		leftParams.x = centerParams.x - MetricUtil.getDip(ctx,100);
-		System.out.println("leftParams.x=="+leftParams.x);
+		System.out.println("centerParams.x==" + centerParams.x);
+		leftParams.x = centerParams.x - MetricUtil.getDip(ctx, 100);
+		System.out.println("leftParams.x==" + leftParams.x);
 		leftParams.y = centerParams.y;
 
 		// }
@@ -126,8 +119,8 @@ public class FloatWindowManager {
 		manager.addView(centerRight, rightParams);
 
 	}
-    
-	public static void createCenterPersonView(Context ctx){
+
+	public static void createCenterPersonView(Context ctx) {
 		WindowManager manager = getWindowManger(ctx);
 		DisplayMetrics dm = new DisplayMetrics();
 		manager.getDefaultDisplay().getMetrics(dm);
@@ -142,24 +135,23 @@ public class FloatWindowManager {
 			personParams.type = LayoutParams.TYPE_PHONE;
 			personParams.width = LayoutParams.WRAP_CONTENT;
 			personParams.height = LayoutParams.WRAP_CONTENT;
-			personParams.x = 0 ;
-			personParams.y = screenHeight/2;
-			
-			
-			
-			//personParams.gravity = Gravity.BOTTOM| Gravity.CENTER;
+			personParams.x = 0;
+			personParams.y = screenHeight / 2;
+
+			// personParams.gravity = Gravity.BOTTOM| Gravity.CENTER;
 		}
-		//centerPerson.setMangerLayParams(rightParams);
+		// centerPerson.setMangerLayParams(rightParams);
 		manager.addView(centerPerson, personParams);
-		
+
 	}
-	
+
 	public static void disPlayRightView(Context ctx) {
 		WindowManager manager = getWindowManger(ctx);
 		centerLeft.setVisibility(View.GONE);
 		centerRight.setVisibility(View.VISIBLE);
 		center.setVisibility(View.GONE);
-		centerParams.x = centerParams.x + MetricUtil.getDip(ctx, OFFSET);;
+		centerParams.x = centerParams.x + MetricUtil.getDip(ctx, OFFSET);
+		;
 		manager.updateViewLayout(centerRight, centerParams);
 
 	}
@@ -185,44 +177,40 @@ public class FloatWindowManager {
 		WindowManager manager = getWindowManger(ctx);
 		centerRight.setVisibility(View.GONE);
 		centerLeft.setVisibility(View.GONE);
-//		centerPerson.setVisibility(View.GONE);
 		center.setVisibility(View.VISIBLE);
 		if (place == 0) {
 			centerParams.x = centerParams.x - MetricUtil.getDip(ctx, OFFSET);
-		} else if(place ==1) {
+		} else if (place == 1) {
 			centerParams.x = centerParams.x + MetricUtil.getDip(ctx, OFFSET);
-
-		}else{
-			
-			
+		} else {
 		}
 		manager.updateViewLayout(center, centerParams);
 
 	}
-    
 	/**
 	 * 隐藏浮窗
+	 * 
 	 * @param ctx
 	 */
-    public static void hideFloatView(Context ctx){
-    	center.setVisibility(View.GONE);
-    	centerLeft.setVisibility(View.GONE);
-    	centerRight.setVisibility(View.GONE);
-    }
-    
-   
-	public static void disPlayPersonView(Context ctx){
-		if(centerRight != null){
-		centerRight.setVisibility(View.GONE);
-		}
-		if(centerLeft!=null){
-		centerLeft.setVisibility(View.GONE);
-		}
-		if(center!=null){
+	public static void hideFloatView(Context ctx) {
 		center.setVisibility(View.GONE);
+		centerLeft.setVisibility(View.GONE);
+		centerRight.setVisibility(View.GONE);
+	}
+
+	public static void disPlayPersonView(Context ctx) {
+		if (centerRight != null) {
+			centerRight.setVisibility(View.GONE);
+		}
+		if (centerLeft != null) {
+			centerLeft.setVisibility(View.GONE);
+		}
+		if (center != null) {
+			center.setVisibility(View.GONE);
 		}
 		centerPerson.setVisibility(View.VISIBLE);
 	}
+
 	private static WindowManager getWindowManger(Context ctx) {
 
 		return (WindowManager) ctx.getApplicationContext().getSystemService(

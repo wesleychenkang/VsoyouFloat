@@ -87,7 +87,7 @@ public class FloatCenter extends LinearLayout implements OnClickListener {
 			break;
 
 		}
-		return true;
+		return false;
 	}
 
 	private void updateView(int x, int y) {

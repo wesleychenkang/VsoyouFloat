@@ -10,12 +10,11 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.vsoyou.sdk.ParamChain;
-import com.vsoyou.sdk.resources.ResourceLoader;
+import com.vsoyou.sdk.ParamChain.KeyGlobal;
 import com.vsoyou.sdk.vscenter.util.BitmapCache;
 import com.vsoyou.sdk.vscenter.util.MetricUtil;
-
+import com.vsoyou.sdk.vscenter.view.person.ILayoutHost.KeyILayoutHost;
 public class PersonLayoutView extends BaseLayout {
 	private String[] img = { "phone.png", "email.png", "password.png",
 			"quetion.png", "customer.png","record.png"};
@@ -33,19 +32,32 @@ public class PersonLayoutView extends BaseLayout {
 		sub.addView(all, new FrameLayout.LayoutParams(LP_MM));
 		all.setOrientation(HORIZONTAL);
 		createLeftView(all, ctx);
+		createCenterLine(all,ctx);
 		createRightView(all, ctx);
 
 	}
 	
+	
+
 	@Override
 	protected void initEnv(Context ctx,ParamChain env) {
 		// TODO Auto-generated method stub
 		
 	}
+	private void createCenterLine(LinearLayout all, Context ctx) {
+		LinearLayout l = new LinearLayout(ctx);
+		l.setPadding(0, MetricUtil.getDip( ctx, 40), 0, MetricUtil.getDip( ctx, 40));
+		View view = new View(ctx);
+		view.setBackgroundColor(Color.rgb(235, 235, 235));
+		LayoutParams lp_view = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.MATCH_PARENT);
+		lp_view.width = 3;
+		lp_view.gravity = Gravity.CENTER;
+		l.addView(view,lp_view);
+		all.addView(l,lp_view);
+	}
 
 	private void createLeftView(LinearLayout all, Context ctx) {
 		LinearLayout lay = new LinearLayout(ctx);
-		// lay.setBackgroundColor(Color.RED);
 		lay.setOrientation(VERTICAL);
 		lay.setGravity(Gravity.CENTER);
 		LayoutParams lp_lay = new LayoutParams(LP_MM);
@@ -72,24 +84,30 @@ public class PersonLayoutView extends BaseLayout {
 		LayoutParams lp_lay = new LayoutParams(LP_MM);
 		lp_lay.weight = 0.3f;
 		rv.addView(scroll, lp_lay);
-
+		scroll.setPadding(MetricUtil.getDip(ctx, 0),
+				MetricUtil.getDip(ctx, 30), MetricUtil.getDip(ctx, 0),
+				MetricUtil.getDip(ctx, 30));
+        
 		LinearLayout all = new LinearLayout(ctx);
 		all.setOrientation(VERTICAL);
-
-		scroll.setPadding(MetricUtil.getDip(ctx, 40),
-				MetricUtil.getDip(ctx, 20), MetricUtil.getDip(ctx, 50),
-				MetricUtil.getDip(ctx, 20));
-		all.setBackgroundColor(Color.WHITE);
-		scroll.addView(all, new LayoutParams(LP_MW));
+		LinearLayout all_content = new LinearLayout(ctx);
+		all_content.setOrientation(VERTICAL);
+		LayoutParams llll= new LayoutParams(LP_MW);
+		all.addView(all_content,new LayoutParams(LP_MW));
+		all.setPadding(MetricUtil.getDip(ctx, 40),
+				MetricUtil.getDip(ctx, 0), MetricUtil.getDip(ctx, 50),
+				MetricUtil.getDip(ctx, 0));
+		all_content.setBackgroundColor(Color.rgb(255, 255, 255));
+		scroll.addView(all, llll);
 		for (int i = 0; i < img.length; i++) {
 			{
 				LinearLayout l_phone = new LinearLayout(ctx);
-				l_phone.setBackgroundColor(Color.parseColor("#FFFACD"));
+				//l_phone.setBackgroundColor(Color.parseColor("#FFFACD"));
 				l_phone.setId(i+20000);
 				l_phone.setOnClickListener(this);
 				l_phone.setOrientation(HORIZONTAL);
 				l_phone.setPadding(15, 10, 15, 10);
-				all.addView(l_phone, new LayoutParams(LP_MW));
+				all_content.addView(l_phone, new LayoutParams(LP_MW));
 
 				// 个人手机 左边图像区域
 				LinearLayout l_phone_left = new LinearLayout(ctx);
@@ -117,16 +135,18 @@ public class PersonLayoutView extends BaseLayout {
 
 				LinearLayout l_phone_right = new LinearLayout(ctx);
 				l_phone_right.setOrientation(HORIZONTAL);
-				l_phone_right.setGravity(Gravity.RIGHT);
+				l_phone_right.setPadding(0, MetricUtil.getDip(ctx, 10), MetricUtil.getDip(ctx, 15), MetricUtil.getDip(ctx, 10));
+				l_phone_right.setGravity(Gravity.RIGHT|Gravity.CENTER);
 				LayoutParams lp_right = new LayoutParams(LP_MW);
 				lp_right.weight = 0.6f;
 				l_phone.addView(l_phone_right, lp_right);
-				//if (i < 2) {
+				
+				if (i < 2) {
 					TextView text = new TextView(ctx);
 					text.setText("未绑定");
 					text.setPadding(0, 0, 10, 0);
 					l_phone_right.addView(text);
-				//}
+				}
 				ImageView img_open = new ImageView(ctx);
 				img_open.setBackgroundDrawable(BitmapCache.getDrawable(ctx,
 						"open.png"));
@@ -135,10 +155,10 @@ public class PersonLayoutView extends BaseLayout {
 				l_phone_right.addView(img_open, lp_imag);
 				
 				View view = new View(ctx);
-				view.setBackgroundColor(Color.parseColor("#DCDCDC"));
+				view.setBackgroundColor(Color.rgb(235, 235, 235));
 			   LayoutParams lp_view = new LayoutParams(LP_MW);
-			   lp_view.height = 5;
-			   all.addView(view,lp_view);
+			   lp_view.height = 3;
+			   all_content.addView(view,lp_view);
 			   
 			}
 
@@ -153,6 +173,7 @@ public class PersonLayoutView extends BaseLayout {
 		switch(v.getId()){
 		case 20000:
 			Toast.makeText(getContext(), "0", Toast.LENGTH_SHORT).show();
+			tryEntryOtherView();
 			break;
 		case 20001:
 			Toast.makeText(getContext(), "1", Toast.LENGTH_SHORT).show();
@@ -161,6 +182,14 @@ public class PersonLayoutView extends BaseLayout {
 		}
 
 	}
+	
+   
+	private void tryEntryOtherView() {
+	  ParamChain env =getEnv();
+	  ILayoutHost host = env.get(KeyILayoutHost.K_HOST, ILayoutHost.class);
+	  host.enter(env, ((Object)this).getClass().getClassLoader(), PhoneLayoutView.class.getName());
+		
+	}
 
 	@Override
 	public boolean isExitEnabled(boolean isBack) {
@@ -168,11 +197,6 @@ public class PersonLayoutView extends BaseLayout {
 		return false;
 	}
 
-	@Override
-	public ParamChain getEnv() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public boolean isAlive() {
@@ -180,11 +204,6 @@ public class PersonLayoutView extends BaseLayout {
 		return false;
 	}
 
-	@Override
-	public View getMainView() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	
 }

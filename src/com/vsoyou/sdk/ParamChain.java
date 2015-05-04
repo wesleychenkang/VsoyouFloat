@@ -34,6 +34,10 @@ public interface ParamChain {
 		static final String BASE_ACTIVITY = _TAG_ + "mainActivity";
 		/** 页面类型 */
 		static final String LAYOUT_TYPE = _TAG_ + "personLayout";
+	    
+		/**窗体名称*/
+		static final String KEY_UINAME =_TAG_+"ui_activity_name";
+	
 	}
 
 	public static enum ValType {

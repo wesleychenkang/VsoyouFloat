@@ -98,8 +98,6 @@ public abstract class BaseLayout extends LinearLayout implements
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
 				Gravity.LEFT | Gravity.CENTER);
 		lp_back.leftMargin = MetricUtil.getDip(context, 10);
-		lp_back.height = MetricUtil.getDip(context, 10);
-		lp_back.width = MetricUtil.getDip(context, 10);
 		title.addView(back, lp_back);
 
 		// 退出
@@ -117,7 +115,7 @@ public abstract class BaseLayout extends LinearLayout implements
 		{
 			// 主体区域
 			FrameLayout frame_main = new FrameLayout(context);
-			frame_main.setBackgroundColor(Color.parseColor("#FFFFE0"));
+			frame_main.setBackgroundDrawable(BitmapCache.getDrawable(context, "buttom_back.9.png"));
 			rv.addView(frame_main, new LayoutParams(LP_MM));
 			View view = createViewSubject(context);
 			frame_main
@@ -179,11 +177,21 @@ public abstract class BaseLayout extends LinearLayout implements
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+    @Override
+    public View getMainView() {
+    	// TODO Auto-generated method stub
+    	return this;
+    }
 	@Override
 	public boolean onExit() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	@Override
+	public ParamChain getEnv() {
+		// TODO Auto-generated method stub
+		return mEnv;
 	}
     /**
      * 返回

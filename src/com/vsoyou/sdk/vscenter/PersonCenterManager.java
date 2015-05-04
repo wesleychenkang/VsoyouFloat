@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.vsoyou.sdk.ParamChain;
+import com.vsoyou.sdk.ParamChain.KeyGlobal;
 import com.vsoyou.sdk.vscenter.activity.PersonCenterActivity;
 
 public class PersonCenterManager {
@@ -25,15 +26,17 @@ public class PersonCenterManager {
 	 * @param chain
 	 * @return
 	 */
-    private  boolean  startPersonCenter(Context ctx,ParamChain chain){
+    private  boolean  startPersonCenter(Context ctx,ParamChain chain,int type){
     	Intent intent = new Intent("com.vsoyou.sdk.activity.personcenter");
     	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    	intent.putExtra(KeyGlobal.KEY_UINAME, type);
     	ctx.getApplicationContext().startActivity(intent);
     	FloatWindowManager.hideFloatView(ctx);
     	return true;
     }
     public  boolean startPersonCenter(Context ctx){
-    	  startPersonCenter(ctx,null);
+    	
+    	  startPersonCenter(ctx,null,0);
     	return true;
     }
 }
