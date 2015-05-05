@@ -82,6 +82,7 @@ public class FloatCenterLeftView extends LinearLayout implements
 
 		TextView txt = new TextView(ctx);
 		txt.setText("个人中心");
+		txt.setTextColor(Color.parseColor("#2d2d2d"));
 		txt.setTextSize(MetricUtil.getDip(ctx, 6));
 		LayoutParams ll_txt_person = new LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -114,6 +115,7 @@ public class FloatCenterLeftView extends LinearLayout implements
 		TextView txt_forum = new TextView(ctx);
 		txt_forum.setText("论坛");
 		txt_forum.setTextSize(MetricUtil.getDip(ctx, 6));
+		txt_forum.setTextColor(Color.parseColor("#2d2d2d"));
 		txt_forum.setId(1000021);
 		LayoutParams lp_txt_forum = new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);

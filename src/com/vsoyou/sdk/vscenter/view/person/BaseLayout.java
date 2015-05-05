@@ -3,12 +3,14 @@ package com.vsoyou.sdk.vscenter.view.person;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,9 +37,9 @@ public abstract class BaseLayout extends LinearLayout implements
 	protected final static LayoutParams LP_MW = new LayoutParams(
 			LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
-	private ImageView back;
+	private ImageButton back;
 
-	private ImageView exit;
+	private ImageButton exit;
 
 	private FrameLayout frame_sub;
 
@@ -83,6 +85,7 @@ public abstract class BaseLayout extends LinearLayout implements
 		txt_title.setText("个人中心");
 		txt_title.setPadding(0, 10, 0, 10);
 		txt_title.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 25f);
+		txt_title.setTextColor(Color.rgb(245, 245, 245));
 		// tv.setTextColor(Color.parseColor("#fe501b"));
 		txt_title.setGravity(Gravity.CENTER);
 		txt_title.setSingleLine();
@@ -91,8 +94,12 @@ public abstract class BaseLayout extends LinearLayout implements
 				Gravity.CENTER));
 
 		// 返回
-		back = new ImageView(context);
-		back.setBackgroundDrawable(BitmapCache.getDrawable(context, "back.png"));
+		back = new ImageButton(context);
+		Drawable drawable = BitmapCache.getDrawable(context, "back.png");
+		back.setBackgroundDrawable(drawable);
+		back.setPadding(MetricUtil.getDip(context, 10.0F),MetricUtil.getDip(context, 10.0F),MetricUtil.getDip(context, 10.0F),MetricUtil.getDip(context, 10.0F));
+		back.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+		back.setClickable(true);
 		back.setOnClickListener(this);
 		FrameLayout.LayoutParams lp_back = new FrameLayout.LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
@@ -101,15 +108,16 @@ public abstract class BaseLayout extends LinearLayout implements
 		title.addView(back, lp_back);
 
 		// 退出
-		exit = new ImageView(context);
+		exit = new ImageButton(context);
 		exit.setBackgroundDrawable(BitmapCache.getDrawable(context, "exit.png"));
+		exit.setPadding(MetricUtil.getDip(context, 10.0F),MetricUtil.getDip(context, 10.0F),MetricUtil.getDip(context, 10.0F),MetricUtil.getDip(context, 10.0F));
+		exit.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+		exit.setClickable(true);
 		exit.setOnClickListener(this);
 		FrameLayout.LayoutParams lp_exit = new FrameLayout.LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
 				Gravity.RIGHT | Gravity.CENTER);
 		lp_exit.rightMargin = MetricUtil.getDip(context, 10);
-		lp_exit.height = MetricUtil.getDip(context, 10);
-		lp_exit.width = MetricUtil.getDip(context, 10);
 		title.addView(exit, lp_exit);
 
 		{
@@ -121,7 +129,6 @@ public abstract class BaseLayout extends LinearLayout implements
 			frame_main
 					.addView(view, new LayoutParams(LayoutParams.MATCH_PARENT,
 							LayoutParams.MATCH_PARENT, 1.0f));
-
 		}
 
 		// 下标题栏
@@ -153,17 +160,17 @@ public abstract class BaseLayout extends LinearLayout implements
 	@Override
 	public void onClick(View v) {
 		if (back == v) {
-			Toast.makeText(getContext(), "返回", Toast.LENGTH_SHORT).show();
+			host_back();
 		} else if (exit == v) {
-
-		}
+			host_exit();
+		} 
 
 	}
 
 	@Override
 	public boolean onEnter() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -193,6 +200,19 @@ public abstract class BaseLayout extends LinearLayout implements
 		// TODO Auto-generated method stub
 		return mEnv;
 	}
+	
+	@Override
+	public boolean isExitEnabled(boolean isBack) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAlive() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
     /**
      * 返回
      */
@@ -238,14 +258,12 @@ public abstract class BaseLayout extends LinearLayout implements
 		}
 		
 	}
-
 	protected void removeActivityControlInterface() {
 		if (mActivityControl != null) {
 			disableActivityControlInterface();
 			mActivityControl = null;
 		}
 	}
-
 	private void disableActivityControlInterface() {
 		if (null != mActivityControl) {
 			ILayoutHost host = get_host();
