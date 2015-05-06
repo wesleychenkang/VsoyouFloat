@@ -17,8 +17,6 @@ import com.vsoyou.sdk.vscenter.view.person.ILayoutHost;
 import com.vsoyou.sdk.vscenter.view.person.ILayoutHost.KeyILayoutHost;
 import com.vsoyou.sdk.vscenter.view.person.ILayoutView;
 import com.vsoyou.sdk.vscenter.view.person.LayoutFactory;
-import com.vsoyou.sdk.vscenter.view.person.PersonLayoutView;
-import com.vsoyou.sdk.vscenter.view.person.PhoneLayoutView;
 
 public class PersonCenterActivity extends Activity {
 	private static ParamChain ROOT_ENV;
@@ -41,14 +39,13 @@ public class PersonCenterActivity extends Activity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		//setContentView(new PersonLayoutView(getApplicationContext(), ROOT_ENV));
-		
 		initActivity(this);
 	}
 
 	private void initActivity(Activity activity) {
-//		int  type = getIntent().getIntExtra(KeyGlobal.KEY_UINAME,-1);
-		//ParamChain env = (ParamChain) GET_GLOBAL_PARAM_CHAIN().remove(PersonCenterActivity.class.getName());
-		root = ROOT_ENV.grow();
+		String name = getIntent().getStringExtra(KeyGlobal.KEY_UINAME);
+		ParamChain env = (ParamChain) GET_GLOBAL_PARAM_CHAIN().getParent(PersonCenterActivity.class.getName()).remove(name);
+		root = env.grow();
 		root.add(KeyGlobal.BASE_ACTIVITY, activity);
 		root.add(KeyILayoutHost.K_HOST, new ILayoutHost() {
 
@@ -70,7 +67,7 @@ public class PersonCenterActivity extends Activity {
 			}
 
 			@Override
-			public void enter(ParamChain chain, int type) {
+			public void enter(ParamChain chain, LayoutType type) {
 				// TODO Auto-generated method stub
 
 				tryEnterView(chain, type);
@@ -90,8 +87,8 @@ public class PersonCenterActivity extends Activity {
 			}
 
 		});
-		
-		tryEnterView(root,LayoutFactory.PERSON);
+		LayoutType type = root.get(KeyGlobal.LAYOUT_TYPE, LayoutType.class);
+		tryEnterView(root,type);
 	}
 
 	private void tryEnterView(ParamChain chain, ClassLoader loader,
@@ -103,7 +100,7 @@ public class PersonCenterActivity extends Activity {
 
 	}
 
-	private void tryEnterView(ParamChain chain, int type) {
+	private void tryEnterView(ParamChain chain, LayoutType type) {
 		ILayoutView layout = LayoutFactory.createLayoutView(
 				getApplicationContext(), type, chain);
 		pushViewToStack(layout);

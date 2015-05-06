@@ -18,8 +18,8 @@ import com.vsoyou.sdk.vscenter.view.person.ILayoutHost.KeyILayoutHost;
 
 public class PersonLayoutView extends BaseLayout {
 	private String[] img = { "phone.png", "email.png", "password.png",
-			"quetion.png", "customer.png", "record.png" };
-	private String[] dll = { "手机", "邮箱", "修改密码", "在线提问", "联系客服", "充值记录" };
+			"customer.png", "record.png","quetion.png" };
+	private String[] dll = { "手机", "邮箱", "修改密码", "联系客服", "充值记录","提问" };
 
 	public PersonLayoutView(Context context, ParamChain chain) {
 		super(context, chain);
@@ -89,6 +89,7 @@ public class PersonLayoutView extends BaseLayout {
 		LayoutParams lp_lay = new LayoutParams(LP_MM);
 		lp_lay.weight = 0.3f;
 		rv.addView(scroll, lp_lay);
+		rv.setBackgroundDrawable(BitmapCache.getNinePatchDrawable(ctx, "person_black.9.png"));
 		scroll.setPadding(MetricUtil.getDip(ctx, 0),
 				MetricUtil.getDip(ctx, 30), MetricUtil.getDip(ctx, 0),
 				MetricUtil.getDip(ctx, 30));
@@ -101,7 +102,7 @@ public class PersonLayoutView extends BaseLayout {
 		all.addView(all_content, new LayoutParams(LP_MW));
 		all.setPadding(MetricUtil.getDip(ctx, 40), MetricUtil.getDip(ctx, 0),
 				MetricUtil.getDip(ctx, 50), MetricUtil.getDip(ctx, 0));
-		all_content.setBackgroundColor(Color.rgb(255, 255, 255));
+		all_content.setBackgroundDrawable(BitmapCache.getNinePatchDrawable(ctx, "person_black.9.png"));
 		scroll.addView(all, llll);
 		for (int i = 0; i < img.length; i++) {
 			{
@@ -162,15 +163,14 @@ public class PersonLayoutView extends BaseLayout {
 				LayoutParams lp_imag = new LayoutParams(LP_WW);
 				lp_imag.gravity = Gravity.CENTER;
 				l_phone_right.addView(img_open, lp_imag);
-
+                if(i< img.length-1){
 				View view = new View(ctx);
 				view.setBackgroundColor(Color.rgb(235, 235, 235));
 				LayoutParams lp_view = new LayoutParams(LP_MW);
 				lp_view.height = 3;
 				all_content.addView(view, lp_view);
-
+                }
 			}
-
 		}
 
 	}

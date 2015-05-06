@@ -24,7 +24,6 @@ public class RecordLayoutView extends BaseLayout{
        FrameLayout sub = (FrameLayout)getView_subject(ctx);
        ListView mList = new ListView(ctx);
        sub.addView(mList);
-       
 	}
 
 	

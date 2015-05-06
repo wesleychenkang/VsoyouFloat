@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -19,6 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.LinearLayout.LayoutParams;
+
 import com.example.androidfloat.R;
 import com.vsoyou.sdk.vscenter.FloatWindowManager;
 import com.vsoyou.sdk.vscenter.PersonCenterManager;
@@ -32,7 +35,11 @@ public class FloatCenterRightView extends LinearLayout implements
 	private float lastX, lastY;
 	private ImageView imag;
 	private ImageView imag_person;
-    private LinearLayout ll_person;
+	private ImageView image_forum;
+	private TextView txt_forum;
+	private TextView txt_person;
+	private TextView txt_quetion;
+
 	public FloatCenterRightView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		initView(context);
@@ -48,78 +55,88 @@ public class FloatCenterRightView extends LinearLayout implements
 		FrameLayout all = new FrameLayout(ctx);
 		LayoutParams lp_ll = new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
-		lp_ll.width = MetricUtil.getDip(ctx, 180);
+		lp_ll.width = MetricUtil.getDip(ctx, 200);
 		addView(all, lp_ll);
 		LinearLayout l_left = new LinearLayout(ctx);
 		l_left.setBackgroundDrawable(BitmapCache.getDrawable(ctx,
-				"float_left.png"));
+				"float_right.png"));
 		FrameLayout.LayoutParams lp_lleft = new FrameLayout.LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		lp_lleft.rightMargin = MetricUtil.getDip(ctx, 50);
+		lp_lleft.leftMargin = MetricUtil.getDip(ctx, 45);
 		lp_lleft.topMargin = MetricUtil.getDip(ctx, 7);
-		lp_lleft.gravity = Gravity.RIGHT;
+		lp_lleft.gravity = Gravity.LEFT;
 		all.addView(l_left, lp_lleft);
 		l_left.setOrientation(HORIZONTAL);
 
-		
-	    ll_person = new LinearLayout(ctx);
-		ll_person.setOrientation(VERTICAL);
-		ll_person.setGravity(Gravity.CENTER_VERTICAL);
-		ll_person.setId(100003);
-		ll_person.setOnClickListener(this);
-		imag_person = new ImageView(ctx);
-		imag_person.setId(100004);
-		imag_person.setOnClickListener(this);
-		imag_person.setBackgroundDrawable(BitmapCache.getDrawable(ctx,
-				"person.png"));
-		LayoutParams lp_image1 = new LayoutParams(LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT);
-		lp_image1.gravity = Gravity.CENTER_HORIZONTAL;
-		ll_person.addView(imag_person, lp_image1);
-
-		TextView txt = new TextView(ctx);
-		txt.setText("个人中心");
-		txt.setTextSize(MetricUtil.getDip(ctx, 6));
-		LayoutParams ll_txt_person = new LayoutParams(
-				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		ll_txt_person.gravity = Gravity.CENTER;
-		ll_person.addView(txt, ll_txt_person);
-		LayoutParams ll_person_prams = new LayoutParams(
-				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-		ll_person_prams.weight = 0.5f;
-		l_left.addView(ll_person, ll_person_prams);
-
-		// 璁哄潧
-		LinearLayout ll_forum = new LinearLayout(ctx);
-		ll_forum.setOrientation(VERTICAL);
-		ll_forum.setGravity(Gravity.LEFT);
-		ll_forum.setPadding(MetricUtil.getDip(ctx, 10),
-				MetricUtil.getDip(ctx, 5), 0, MetricUtil.getDip(ctx, 5));
-		ll_forum.setId(100001);
-		
-
-		ImageView image_forum = new ImageView(ctx);
-		image_forum.setBackgroundDrawable(BitmapCache.getDrawable(ctx,
-				"forum.png"));
-		LayoutParams lp_image_forum = new LayoutParams(
-				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		// lp_image_forum.gravity = Gravity.CENTER_HORIZONTAL;
-		ll_forum.addView(image_forum, lp_image_forum);
-		image_forum.setId(100002);
-		image_forum.setOnClickListener(this);
-
-		TextView txt_forum = new TextView(ctx);
+		Drawable d = BitmapCache.getDrawable(ctx, "forum.png");
+		d.setBounds(MetricUtil.getDip(ctx, 10), MetricUtil.getDip(ctx, 10),
+				MetricUtil.getDip(ctx, 10), MetricUtil.getDip(ctx, 10));
+		txt_forum = new TextView(ctx);
 		txt_forum.setText("论坛");
+		txt_forum.setPadding(MetricUtil.getDip(ctx,21),
+				MetricUtil.getDip(ctx, 5), MetricUtil.getDip(ctx, 8),
+				MetricUtil.getDip(ctx, 5));
+		txt_forum.setOnClickListener(this);
 		txt_forum.setTextSize(MetricUtil.getDip(ctx, 6));
+		txt_forum.setTextColor(Color.parseColor("#2d2d2d"));
+		txt_forum.setCompoundDrawablesWithIntrinsicBounds(null, d, null, null);
 		txt_forum.setId(1000021);
 		LayoutParams lp_txt_forum = new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
-		ll_forum.addView(txt_forum, lp_txt_forum);
+		l_left.addView(txt_forum, lp_txt_forum);
 
 		LayoutParams ll_forum_prams = new LayoutParams(
-				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-		ll_forum_prams.weight = 0.5f;
-		l_left.addView(ll_forum, ll_forum_prams);
+				LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+		ll_forum_prams.weight = 0.3f;
+		// l_left.addView(ll_forum, ll_forum_prams);
+		
+		
+		Drawable d_quetion = BitmapCache.getDrawable(ctx, "quetion.png");
+		d_quetion.setBounds(MetricUtil.getDip(ctx, 10),
+				MetricUtil.getDip(ctx, 10), MetricUtil.getDip(ctx, 10),
+				MetricUtil.getDip(ctx, 10));
+		txt_quetion = new TextView(ctx);
+		txt_quetion.setText("提问");
+		txt_quetion.setPadding(MetricUtil.getDip(ctx, 5),
+				MetricUtil.getDip(ctx, 5), MetricUtil.getDip(ctx, 5),
+				MetricUtil.getDip(ctx, 5));
+		txt_quetion.setOnClickListener(this);
+		txt_quetion.setTextColor(Color.parseColor("#2d2d2d"));
+		txt_quetion.setTextSize(MetricUtil.getDip(ctx, 6));
+		txt_quetion.setCompoundDrawablesWithIntrinsicBounds(null, d_quetion,
+				null, null);
+
+		LayoutParams ll_txt_quetion = new LayoutParams(
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		// ll_txt_person.gravity = Gravity.CENTER;
+		l_left.addView(txt_quetion, ll_txt_quetion);
+
+
+		// 个人中心
+
+		Drawable d_person = BitmapCache.getDrawable(ctx, "person.png");
+		d_person.setBounds(MetricUtil.getDip(ctx, 10),
+				MetricUtil.getDip(ctx, 10), MetricUtil.getDip(ctx, 10),
+				MetricUtil.getDip(ctx, 10));
+		txt_person = new TextView(ctx);
+		txt_person.setText("个人中心");
+		txt_person.setPadding(MetricUtil.getDip(ctx, 5),
+				MetricUtil.getDip(ctx, 5), MetricUtil.getDip(ctx, 5),
+				MetricUtil.getDip(ctx, 5));
+		txt_person.setOnClickListener(this);
+		txt_person.setTextColor(Color.parseColor("#2d2d2d"));
+		txt_person.setTextSize(MetricUtil.getDip(ctx, 6));
+		txt_person.setCompoundDrawablesWithIntrinsicBounds(null, d_person,
+				null, null);
+
+		LayoutParams ll_txt_person = new LayoutParams(
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		// ll_txt_person.gravity = Gravity.CENTER;
+		l_left.addView(txt_person, ll_txt_person);
+
+		
+
+		
 
 		FrameLayout frame_logo = new FrameLayout(ctx);
 		ImageView back_round = new ImageView(ctx);
@@ -134,10 +151,9 @@ public class FloatCenterRightView extends LinearLayout implements
 				Gravity.CENTER));
 		imag.setOnClickListener(this);
 
-
 		FrameLayout.LayoutParams l_logo = new FrameLayout.LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		l_logo.gravity = Gravity.RIGHT;
+		l_logo.gravity = Gravity.LEFT;
 		all.addView(frame_logo, l_logo);
 
 	}
@@ -151,20 +167,19 @@ public class FloatCenterRightView extends LinearLayout implements
 	public boolean onTouchEvent(MotionEvent event) {
 
 		float x = event.getX();
-		float y = event.getY();
+		float y = event.getY() - getStatusBarHeight();
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
 			lastX = x;
-			lastY = y;
+			lastY = y - getStatusBarHeight();
 			break;
 		case MotionEvent.ACTION_MOVE:
 			float newx = event.getX();
 			float newy = event.getY();
 			float movex = newx - lastX;
-			float movey = newy -lastY;
-			if(Math.abs(movex)>3||Math.abs(movey)>3){
+			float movey = newy - lastY;
+			if (Math.abs(movex) > 3 || Math.abs(movey) > 3) {
 				updatePostion();
-				
 			}
 			lp.x += (int) (x - lastX);
 			lp.y += (int) (y - lastY);
@@ -178,7 +193,7 @@ public class FloatCenterRightView extends LinearLayout implements
 	}
 
 	private void updatePostion() {
-		FloatWindowManager.disPlayCenterView(getContext(), 1);
+		FloatWindowManager.disPlayCenterView(getContext(), 0);
 	}
 
 	private int getStatusBarHeight() {
@@ -198,12 +213,17 @@ public class FloatCenterRightView extends LinearLayout implements
 
 	@Override
 	public void onClick(View arg0) {
-		if (arg0 == ll_person) {
+		if (arg0 == txt_person) {
 			FloatWindowManager.hideFloatView(getContext());
 			PersonCenterManager.getInstance().startPersonCenter(getContext());
-		}
-		if(arg0==imag){
+		} else if (arg0 == imag) {
 			updatePostion();
+		} else if (arg0 == txt_forum) {
+			FloatWindowManager.hideFloatView(getContext());
+			PersonCenterManager.getInstance().startForumCenter(getContext());
+		} else if (arg0 == txt_quetion) {
+			FloatWindowManager.hideFloatView(getContext());
+			PersonCenterManager.getInstance().startQuetionCenter(getContext());
 		}
 	}
 }

@@ -25,7 +25,7 @@ public class FloatWindowManager {
 	private static WindowManager.LayoutParams personParams;
 	private static int x;
 	private static int y;
-	private static final int OFFSET = 57;
+	private static final int OFFSET = 70;
 
 	/**
 	 * 创建浮窗中心页面
@@ -75,7 +75,6 @@ public class FloatWindowManager {
 	 */
 	public static void createCenterLeftView(Context ctx) {
 		WindowManager manager = getWindowManger(ctx);
-		// if (centerLeft == null) {
 		centerLeft = new FloatCenterLeftView(ctx);
 		leftParams = new WindowManager.LayoutParams();
 		leftParams.flags = LayoutParams.FLAG_NOT_TOUCH_MODAL
@@ -84,12 +83,8 @@ public class FloatWindowManager {
 		leftParams.type = LayoutParams.TYPE_PHONE;
 		leftParams.width = LayoutParams.WRAP_CONTENT;
 		leftParams.height = LayoutParams.WRAP_CONTENT;
-		System.out.println("centerParams.x==" + centerParams.x);
 		leftParams.x = centerParams.x - MetricUtil.getDip(ctx, 100);
-		System.out.println("leftParams.x==" + leftParams.x);
 		leftParams.y = centerParams.y;
-
-		// }
 		centerLeft.setMangerLayParams(leftParams);
 		manager.addView(centerLeft, leftParams);
 

@@ -4,7 +4,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
@@ -19,9 +22,10 @@ public class QuetionLayoutView extends BaseLayout {
 	private TextView txt_solved;
 	private TextView txt_unsolved;
 	private TextView txt_ask;
-	private  View all_line;
+	private View all_line;
 	private View unsolved_line;
-    private View solved_line;
+	private View solved_line;
+
 	public QuetionLayoutView(Context context, ParamChain env) {
 		super(context, env);
 		super.initUI(context);
@@ -123,6 +127,20 @@ public class QuetionLayoutView extends BaseLayout {
 		lp.leftMargin = MetricUtil.getDip(ctx, 5);
 		top.addView(txt_ask, lp);
 
+		ExpandableListView list = new ExpandableListView(ctx);
+		list.setChildIndicator(null);
+		list.setGroupIndicator(null);
+		all.addView(list);
+		MyExpandAdapter dapter = 	new MyExpandAdapter();
+		list.setAdapter(dapter);
+		
+	}
+
+	/**
+	 * 带展示的ListView
+	 */
+	private void createExpandListView() {
+
 	}
 
 	@Override
@@ -147,14 +165,14 @@ public class QuetionLayoutView extends BaseLayout {
 	private void undateTextViewColor(TextView view) {
 
 		if (view == txt_all) {
-			
+
 			txt_all.setTextColor(Color.parseColor("#2471d1"));
 			txt_solved.setTextColor(Color.parseColor("#4c4c4c"));
 			txt_unsolved.setTextColor(Color.parseColor("#4c4c4c"));
 			all_line.setVisibility(VISIBLE);
 			unsolved_line.setVisibility(GONE);
 			solved_line.setVisibility(GONE);
-			
+
 		} else if (view == txt_solved) {
 
 			txt_all.setTextColor(Color.parseColor("#4c4c4c"));
@@ -172,6 +190,87 @@ public class QuetionLayoutView extends BaseLayout {
 			unsolved_line.setVisibility(VISIBLE);
 			solved_line.setVisibility(GONE);
 		}
+	}
+
+	class MyExpandAdapter extends BaseExpandableListAdapter {
+
+		@Override
+		public Object getChild(int arg0, int arg1) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public long getChildId(int arg0, int arg1) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public View getChildView(int arg0, int arg1, boolean arg2, View arg3,
+				ViewGroup arg4) {
+			FrameLayout frame = new FrameLayout(getContext());
+			frame.setBackgroundColor(Color.rgb(235, 235, 235));
+			LinearLayout ly = new LinearLayout(getContext());
+			frame.addView(ly,new FrameLayout.LayoutParams(LP_MW));
+			TextView txt = new TextView(getContext());
+			txt.setText("提问详情");
+			ly.addView(txt);
+			
+			return frame;
+		}
+
+		@Override
+		public int getChildrenCount(int arg0) {
+			// TODO Auto-generated method stub
+			return 1;
+		}
+
+		@Override
+		public Object getGroup(int arg0) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public int getGroupCount() {
+			// TODO Auto-generated method stub
+			return 10;
+		}
+
+		@Override
+		public long getGroupId(int arg0) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public View getGroupView(int arg0, boolean arg1, View arg2,
+				ViewGroup arg3) {
+			FrameLayout frame = new FrameLayout(getContext());
+			frame.setBackgroundColor(Color.rgb(235, 235, 235));
+			LinearLayout ly = new LinearLayout(getContext());
+			frame.addView(ly,new FrameLayout.LayoutParams(LP_MW));
+			TextView txt = new TextView(getContext());
+			txt.setText("我的提问");
+			ly.addView(txt);
+			
+			
+			return frame;
+		}
+
+		@Override
+		public boolean hasStableIds() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean isChildSelectable(int arg0, int arg1) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
 	}
 
 }

@@ -16,7 +16,11 @@ public enum LayoutType {
 	PERSON_CENTER,
 	/**论坛页面*/
 	FORUM_CENTER,
+	
+	/**在线提问**/
+	QUETION_CENTER,
 	;
+	
 	
    public String  key(){
 	   return KeyLayoutName.Tag+name();

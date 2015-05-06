@@ -3,6 +3,7 @@ import java.lang.reflect.Constructor;
 import android.content.Context;
 
 import com.vsoyou.sdk.ParamChain;
+import com.vsoyou.sdk.vscenter.activity.LayoutType;
 
 
 public class LayoutFactory { 
@@ -27,18 +28,14 @@ public class LayoutFactory {
 	 * @param context
 	 * @return
 	 */
-	public static ILayoutView createLayoutView(Context context,int viewType,ParamChain env){
+	public static ILayoutView createLayoutView(Context context,LayoutType type,ParamChain env){
 		ILayoutView view = null;
-		switch(viewType){
-		case PERSON :
+		if(type.equals(LayoutType.PERSON_CENTER)){
 			view = new PersonLayoutView(context, env);
-			break;
-		case FORUM:
-			break;
-			
-		case PHONE:
-			view = new PhoneLayoutView(context, env);
-			break;
+		}else if(type.equals(LayoutType.FORUM_CENTER)){
+			view = new ForumLayout(context, env);
+		}else if(type.equals(LayoutType.QUETION_CENTER)){
+			view = new QuetionLayoutView(context, env);
 		}
 		return view;
 	}

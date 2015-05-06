@@ -50,7 +50,6 @@ public class ParamChainImpl implements ParamChain {
 		} else {
 			mData = new HashMap<String, Object>(data);
 		}
-
 		mDataTmp = new HashMap<String, Object>();
 	}
 	/**
