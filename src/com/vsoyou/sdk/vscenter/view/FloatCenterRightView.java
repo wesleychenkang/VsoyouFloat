@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -55,7 +56,7 @@ public class FloatCenterRightView extends LinearLayout implements
 		FrameLayout all = new FrameLayout(ctx);
 		LayoutParams lp_ll = new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
-		lp_ll.width = MetricUtil.getDip(ctx, 200);
+		lp_ll.width = MetricUtil.getDip(ctx, 185);
 		addView(all, lp_ll);
 		LinearLayout l_left = new LinearLayout(ctx);
 		l_left.setBackgroundDrawable(BitmapCache.getDrawable(ctx,
@@ -77,7 +78,7 @@ public class FloatCenterRightView extends LinearLayout implements
 				MetricUtil.getDip(ctx, 5), MetricUtil.getDip(ctx, 8),
 				MetricUtil.getDip(ctx, 5));
 		txt_forum.setOnClickListener(this);
-		txt_forum.setTextSize(MetricUtil.getDip(ctx, 6));
+		txt_forum.setTextSize(TypedValue.COMPLEX_UNIT_DIP,12f);
 		txt_forum.setTextColor(Color.parseColor("#2d2d2d"));
 		txt_forum.setCompoundDrawablesWithIntrinsicBounds(null, d, null, null);
 		txt_forum.setId(1000021);
@@ -102,7 +103,7 @@ public class FloatCenterRightView extends LinearLayout implements
 				MetricUtil.getDip(ctx, 5));
 		txt_quetion.setOnClickListener(this);
 		txt_quetion.setTextColor(Color.parseColor("#2d2d2d"));
-		txt_quetion.setTextSize(MetricUtil.getDip(ctx, 6));
+		txt_quetion.setTextSize(TypedValue.COMPLEX_UNIT_DIP,12f);
 		txt_quetion.setCompoundDrawablesWithIntrinsicBounds(null, d_quetion,
 				null, null);
 
@@ -119,13 +120,14 @@ public class FloatCenterRightView extends LinearLayout implements
 				MetricUtil.getDip(ctx, 10), MetricUtil.getDip(ctx, 10),
 				MetricUtil.getDip(ctx, 10));
 		txt_person = new TextView(ctx);
-		txt_person.setText("个人中心");
-		txt_person.setPadding(MetricUtil.getDip(ctx, 5),
+		txt_person.setText("我");
+		txt_person.setGravity(Gravity.CENTER);
+		txt_person.setPadding(MetricUtil.getDip(ctx, 10),
 				MetricUtil.getDip(ctx, 5), MetricUtil.getDip(ctx, 5),
 				MetricUtil.getDip(ctx, 5));
 		txt_person.setOnClickListener(this);
 		txt_person.setTextColor(Color.parseColor("#2d2d2d"));
-		txt_person.setTextSize(MetricUtil.getDip(ctx, 6));
+		txt_person.setTextSize(TypedValue.COMPLEX_UNIT_DIP,12f);
 		txt_person.setCompoundDrawablesWithIntrinsicBounds(null, d_person,
 				null, null);
 

@@ -2,20 +2,22 @@ package com.vsoyou.sdk.vscenter.view.person;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
-import android.widget.ImageView.ScaleType;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.vsoyou.sdk.ParamChain;
 import com.vsoyou.sdk.vscenter.util.BitmapCache;
 import com.vsoyou.sdk.vscenter.util.MetricUtil;
+import com.vsoyou.sdk.vscenter.view.person.ILayoutHost.KeyILayoutHost;
 
 public class QuetionLayoutView extends BaseLayout {
 	private TextView txt_all;
@@ -25,6 +27,8 @@ public class QuetionLayoutView extends BaseLayout {
 	private View all_line;
 	private View unsolved_line;
 	private View solved_line;
+	private String[] str = { "今天我测试了一下，谢谢！", "最近有什么关于充值的优惠活动", "充值活动的 截止日期是",
+			"最近新出的人物有哪些", "如何才能获取更多的战力", "如何才能更改我的昵称和更改绑定的手机号码" };
 
 	public QuetionLayoutView(Context context, ParamChain env) {
 		super(context, env);
@@ -45,7 +49,7 @@ public class QuetionLayoutView extends BaseLayout {
 		LinearLayout top = new LinearLayout(ctx);
 		all.addView(top);
 		LayoutParams lp = new LayoutParams(LP_MW);
-		lp.weight = 1f;
+		lp.weight = 0.3f;
 		LayoutParams lp_line = new LayoutParams(LP_MW);
 		lp_line.height = MetricUtil.getDip(ctx, 2);
 
@@ -115,25 +119,32 @@ public class QuetionLayoutView extends BaseLayout {
 
 		}
 		txt_ask = new TextView(ctx);
-		txt_ask.setBackgroundDrawable(BitmapCache.getNinePatchDrawable(ctx,
-				"blue_block.9.png"));
 		txt_ask.setGravity(Gravity.CENTER);
 		txt_ask.setOnClickListener(this);
 		txt_ask.setText("我要提问");
+		txt_ask.setBackgroundDrawable(BitmapCache.getDrawable(ctx,
+				"get_token.png"));
 		txt_ask.setTextColor(Color.rgb(21, 108, 211));
-		txt_ask.setPadding(MetricUtil.getDip(ctx, 10),
-				MetricUtil.getDip(ctx, 5), MetricUtil.getDip(ctx, 10),
-				MetricUtil.getDip(ctx, 5));
-		lp.leftMargin = MetricUtil.getDip(ctx, 5);
-		top.addView(txt_ask, lp);
+         
+		// lp.leftMargin = MetricUtil.getDip(ctx, 5);
+		LayoutParams lp_ask = new LayoutParams(LP_MW);
+		lp_ask.weight = 0.3f;
+		lp_ask.height = MetricUtil.getDip(ctx, 35);
+		lp_ask.leftMargin = MetricUtil.getDip(ctx, 5);
+		lp_ask.rightMargin = MetricUtil.getDip(ctx, 5);
+		top.addView(txt_ask, lp_ask);
 
 		ExpandableListView list = new ExpandableListView(ctx);
 		list.setChildIndicator(null);
 		list.setGroupIndicator(null);
-		all.addView(list);
-		MyExpandAdapter dapter = 	new MyExpandAdapter();
+		list.setDivider(BitmapCache.getNinePatchDrawable(ctx, "line.9.png"));
+		list.setDividerHeight(MetricUtil.getDip(ctx, 3));
+		LayoutParams lp_list = new LayoutParams(LP_MW);
+		lp_list.topMargin = MetricUtil.getDip(ctx, 20);
+		all.addView(list, lp_list);
+		MyExpandAdapter dapter = new MyExpandAdapter();
 		list.setAdapter(dapter);
-		
+
 	}
 
 	/**
@@ -155,11 +166,21 @@ public class QuetionLayoutView extends BaseLayout {
 		if (v == txt_all) {
 			undateTextViewColor(txt_all);
 		} else if (v == txt_ask) {
+			entryAsdkLayout();
+			
 		} else if (v == txt_solved) {
 			undateTextViewColor(txt_solved);
 		} else if (v == txt_unsolved) {
 			undateTextViewColor(txt_unsolved);
 		}
+	}
+
+	private void entryAsdkLayout() {
+		ParamChain env = getEnv();
+		ILayoutHost host = env.get(KeyILayoutHost.K_HOST, ILayoutHost.class);
+		host.enter(env, ((Object) this).getClass().getClassLoader(),
+				AskLayoutView.class.getName());
+		
 	}
 
 	private void undateTextViewColor(TextView view) {
@@ -210,13 +231,28 @@ public class QuetionLayoutView extends BaseLayout {
 		public View getChildView(int arg0, int arg1, boolean arg2, View arg3,
 				ViewGroup arg4) {
 			FrameLayout frame = new FrameLayout(getContext());
-			frame.setBackgroundColor(Color.rgb(235, 235, 235));
+			frame.setBackgroundColor(Color.parseColor("#f0f0f0"));
 			LinearLayout ly = new LinearLayout(getContext());
-			frame.addView(ly,new FrameLayout.LayoutParams(LP_MW));
+			ly.setOrientation(VERTICAL);
+			ly.setPadding(MetricUtil.getDip(getContext(), 5),
+					MetricUtil.getDip(getContext(), 5),
+					MetricUtil.getDip(getContext(), 5),
+					MetricUtil.getDip(getContext(), 25));
+			frame.addView(ly, new FrameLayout.LayoutParams(LP_WW));
 			TextView txt = new TextView(getContext());
-			txt.setText("提问详情");
+			txt.setText("回复详情:");
+			txt.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+			txt.setTextColor(Color.parseColor("#656668"));
 			ly.addView(txt);
-			
+
+			TextView status = new TextView(getContext());
+			status.setText("回复状况: 已回复");
+			status.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+			status.setTextColor(Color.parseColor("#656668"));
+			FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(LP_WW);
+			lp.gravity = Gravity.RIGHT | Gravity.BOTTOM;
+			frame.addView(status, lp);
+
 			return frame;
 		}
 
@@ -235,7 +271,7 @@ public class QuetionLayoutView extends BaseLayout {
 		@Override
 		public int getGroupCount() {
 			// TODO Auto-generated method stub
-			return 10;
+			return str.length;
 		}
 
 		@Override
@@ -248,14 +284,41 @@ public class QuetionLayoutView extends BaseLayout {
 		public View getGroupView(int arg0, boolean arg1, View arg2,
 				ViewGroup arg3) {
 			FrameLayout frame = new FrameLayout(getContext());
-			frame.setBackgroundColor(Color.rgb(235, 235, 235));
+			frame.setBackgroundColor(Color.rgb(245, 245, 245));
+			// frame.setBackgroundDrawable(BitmapCache.getNinePatchDrawable(getContext(),
+			// "item_back.9.png"));
 			LinearLayout ly = new LinearLayout(getContext());
-			frame.addView(ly,new FrameLayout.LayoutParams(LP_MW));
+			ly.setOrientation(VERTICAL);
+			frame.addView(ly, new FrameLayout.LayoutParams(LP_MW));
 			TextView txt = new TextView(getContext());
-			txt.setText("我的提问");
+			txt.setText(str[arg0]);
+			txt.setPadding(MetricUtil.getDip(getContext(), 5), MetricUtil.getDip(getContext(), 5), MetricUtil.getDip(getContext(), 5), MetricUtil.getDip(getContext(), 5));
+			txt.setTextColor(Color.parseColor("#8e8e8e"));
+			txt.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
 			ly.addView(txt);
-			
-			
+
+			TextView txt_time = new TextView(getContext());
+			txt_time.setText("提问时间" + "2015-05-07");
+			txt_time.setTextColor(Color.parseColor("#8e8e8e"));
+			txt_time.setPadding(MetricUtil.getDip(getContext(), 5), MetricUtil.getDip(getContext(), 2), MetricUtil.getDip(getContext(), 5), MetricUtil.getDip(getContext(), 2));
+			ly.addView(txt_time);
+
+			ImageView image = new ImageView(getContext());
+			FrameLayout.LayoutParams lp_image = new FrameLayout.LayoutParams(
+					LP_WW);
+			lp_image.gravity = Gravity.RIGHT;
+			lp_image.rightMargin = MetricUtil.getDip(getContext(), 10);
+			if (arg1) {
+				image.setBackgroundDrawable(BitmapCache.getDrawable(
+						getContext(), "top_icon.png"));
+
+			} else {
+
+				image.setBackgroundDrawable(BitmapCache.getDrawable(
+						getContext(), "bottom_icon.png"));
+			}
+			frame.addView(image, lp_image);
+
 			return frame;
 		}
 

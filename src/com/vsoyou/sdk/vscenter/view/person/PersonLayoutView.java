@@ -2,6 +2,7 @@ package com.vsoyou.sdk.vscenter.view.person;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -18,8 +19,8 @@ import com.vsoyou.sdk.vscenter.view.person.ILayoutHost.KeyILayoutHost;
 
 public class PersonLayoutView extends BaseLayout {
 	private String[] img = { "phone.png", "email.png", "password.png",
-			"customer.png", "record.png","quetion.png" };
-	private String[] dll = { "手机", "邮箱", "修改密码", "联系客服", "充值记录","提问" };
+			"customer.png", "record.png" };
+	private String[] dll = { "手机", "邮箱", "修改密码", "联系客服", "充值记录"};
 
 	public PersonLayoutView(Context context, ParamChain chain) {
 		super(context, chain);
@@ -40,8 +41,6 @@ public class PersonLayoutView extends BaseLayout {
 
 	@Override
 	protected void initEnv(Context ctx, ParamChain env) {
-		// TODO Auto-generated method stub
-
 	}
 
 	private void createCenterLine(LinearLayout all, Context ctx) {
@@ -68,11 +67,14 @@ public class PersonLayoutView extends BaseLayout {
 
 		ImageView img_icon = new ImageView(ctx);
 		img_icon.setBackgroundDrawable(BitmapCache.getDrawable(ctx, "icon.png"));
-		lay.addView(img_icon, new LayoutParams(LP_WW));
+		LayoutParams lp_icon = new LayoutParams(LP_WW);
+		lp_icon.height = MetricUtil.getDip(ctx, 75);
+		lp_icon.width = MetricUtil.getDip(ctx, 75);
+		lay.addView(img_icon, lp_icon);
 
 		TextView txt_name = new TextView(ctx);
-		txt_name.setText("vsoyou账号登录");
-		txt_name.setPadding(0, MetricUtil.getDip(ctx, 10), 0, MetricUtil.getDip(ctx, 10));
+		txt_name.setText("威搜游账号登录");
+		txt_name.setPadding(0, MetricUtil.getDip(ctx, 15), 0, MetricUtil.getDip(ctx, 10));
 		txt_name.setTextColor(Color.parseColor("#484848"));
 		lay.addView(txt_name, new LayoutParams(LP_WW));
 
@@ -132,6 +134,7 @@ public class PersonLayoutView extends BaseLayout {
 
 				TextView txt_phone = new TextView(ctx);
 				txt_phone.setText(dll[i]);
+				txt_phone.setTextSize(TypedValue.COMPLEX_UNIT_DIP,14);
 				txt_phone.setTextColor(Color.parseColor("#151515"));
 				txt_phone.setPadding(MetricUtil.getDip(ctx, 15),
 						MetricUtil.getDip(ctx, 10), 0,
@@ -153,6 +156,7 @@ public class PersonLayoutView extends BaseLayout {
 				if (i < 2) {
 					TextView text = new TextView(ctx);
 					text.setText("未绑定");
+					text.setTextSize(TypedValue.COMPLEX_UNIT_DIP,14);
 					text.setPadding(0, 0, 10, 0);
 					text.setTextColor(Color.parseColor("#151515"));
 					l_phone_right.addView(text);
@@ -191,11 +195,11 @@ public class PersonLayoutView extends BaseLayout {
 			tryEnteyPassWordView();
 			break;
 		case 20003:
-			tryEnteyQuetionView();
+			tryEnteyCustumerView();
 			break;
 		case 20004:
 			//客服
-			tryEnteyCustumerView();
+			tryEnteyQuetionView();
 			break;
 		case 20005:
 			Toast.makeText(getContext(), "5", Toast.LENGTH_SHORT).show();

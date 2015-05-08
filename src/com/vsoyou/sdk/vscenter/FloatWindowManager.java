@@ -25,7 +25,7 @@ public class FloatWindowManager {
 	private static WindowManager.LayoutParams personParams;
 	private static int x;
 	private static int y;
-	private static final int OFFSET = 70;
+	private static final int OFFSET = 63;
 
 	/**
 	 * 创建浮窗中心页面

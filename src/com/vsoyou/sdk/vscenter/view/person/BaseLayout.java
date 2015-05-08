@@ -13,8 +13,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.vsoyou.sdk.ParamChain;
 import com.vsoyou.sdk.ParamChain.KeyGlobal;
 import com.vsoyou.sdk.protocols.ActivityControlInterface;
@@ -46,7 +47,8 @@ public abstract class BaseLayout extends LinearLayout implements
 	private TextView txt_title;
   
 	private ParamChain mEnv;
-	
+	 
+	private ProgressDialog dialog;
 	private  ActivityControlInterface mActivityControl;
 	public BaseLayout(Context context, AttributeSet attrs,ParamChain env) {
 		
@@ -271,5 +273,13 @@ public abstract class BaseLayout extends LinearLayout implements
 		}
 
 	}
-	
+	protected void showDialog(Context ctx){
+		dialog = new ProgressDialog(ctx);
+		dialog.show();
+		
+	}
+	protected void hideDialog(Context ctx){
+		dialog.dismiss();
+		
+	}
 }

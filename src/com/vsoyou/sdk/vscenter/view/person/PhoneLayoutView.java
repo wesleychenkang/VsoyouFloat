@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -23,9 +24,10 @@ import com.vsoyou.sdk.vscenter.util.MetricUtil;
 
 public class PhoneLayoutView extends BaseLayout {
 	private Button btn_token;
-    private EditText edit_phone;
-    private EditText edit_token;
-    private Button btn_confirm;
+	private EditText edit_phone;
+	private EditText edit_token;
+	private Button btn_confirm;
+
 	public PhoneLayoutView(Context context, ParamChain chain) {
 		super(context, chain);
 		super.initUI(context);
@@ -74,12 +76,13 @@ public class PhoneLayoutView extends BaseLayout {
 
 		edit_phone = new EditText(ctx);
 		edit_phone.setHint("请输入手机号码");
+		edit_phone.setTextSize(TypedValue.COMPLEX_UNIT_DIP,15);
 		edit_phone.setTextColor(Color.parseColor("#cbcdcb"));
 		edit_phone.setImeOptions(EditorInfo.IME_ACTION_DONE);
 		edit_phone.setInputType(InputType.TYPE_CLASS_PHONE);
 		edit_phone.setBackgroundColor(Color.TRANSPARENT);
 		edit_phone.setPadding(MetricUtil.getDip(ctx, 6),
-				MetricUtil.getDip(ctx, 20), 0, MetricUtil.getDip(ctx, 20));
+				MetricUtil.getDip(ctx, 15), 0, MetricUtil.getDip(ctx, 15));
 		LayoutParams lp_edit = new LayoutParams(LP_MW);
 		top_phone_left.addView(edit_phone, lp_edit);
 
@@ -90,13 +93,17 @@ public class PhoneLayoutView extends BaseLayout {
 		lp_token.gravity = Gravity.CENTER;
 
 		btn_token = new Button(ctx);
+		
+		btn_token.setText("获取验证码");
+		btn_token.setTextSize(TypedValue.COMPLEX_UNIT_DIP,14);
 		btn_token.setBackgroundDrawable(BitmapCache.getDrawable(ctx,
 				"get_token.png"));
-		btn_token.setText("获取验证码");
 		btn_token.setOnClickListener(this);
 		btn_token.setTextColor(Color.parseColor("#2471d1"));
 		LayoutParams lp_btn_token = new LayoutParams(LP_WW);
 		lp_btn_token.rightMargin = MetricUtil.getDip(ctx, 6);
+		lp_btn_token.height = MetricUtil.getDip(ctx, 35);
+		lp_btn_token.width = MetricUtil.getDip(ctx, 120);
 		l_btn_token.addView(btn_token, lp_btn_token);
 
 		top_phone.addView(l_btn_token, lp_token);
@@ -125,10 +132,11 @@ public class PhoneLayoutView extends BaseLayout {
 
 		edit_token = new EditText(ctx);
 		edit_token.setHint("请输入验证码");
+		edit_token.setTextSize(TypedValue.COMPLEX_UNIT_DIP,15);
 		edit_token.setTextColor(Color.parseColor("#cbcdcb"));
 		edit_token.setInputType(InputType.TYPE_CLASS_PHONE);
 		edit_token.setPadding(MetricUtil.getDip(ctx, 6),
-				MetricUtil.getDip(ctx, 20), 0, MetricUtil.getDip(ctx, 20));
+				MetricUtil.getDip(ctx, 15), 0, MetricUtil.getDip(ctx, 15));
 		edit_token.setBackgroundColor(Color.TRANSPARENT);
 		LayoutParams lp_edit_token = new LayoutParams(LP_MW);
 		top_token.addView(edit_token, lp_edit_token);
@@ -138,6 +146,7 @@ public class PhoneLayoutView extends BaseLayout {
 		LinearLayout lin_buttom = new LinearLayout(ctx);
 		btn_confirm = new Button(ctx);
 		btn_confirm.setText("确定");
+		btn_confirm.setTextSize(TypedValue.COMPLEX_UNIT_DIP,18);
 		btn_confirm.setOnClickListener(this);
 		btn_confirm.setBackgroundDrawable(BitmapCache.getNinePatchDrawable(ctx,
 				"btn_blue.9.png"));
@@ -155,44 +164,50 @@ public class PhoneLayoutView extends BaseLayout {
 	private String getToken() {
 		return edit_token.getText().toString();
 	}
-    private boolean checkNumber (){
-    	String number = getNumber();
-    	if(TextUtils.isEmpty(number)){
+
+	private boolean checkNumber() {
+		String number = getNumber();
+		if (TextUtils.isEmpty(number)) {
 			Toast.makeText(getContext(), "请输入手机号码", Toast.LENGTH_SHORT).show();
 			return false;
-		 }
-    	String regExp = "^[1]([3][0-9]{1}|59|58|88|89)[0-9]{8}$"; 
-    	Pattern p = Pattern.compile(regExp); 
-    	Matcher m = p.matcher(number); 
-    	Toast.makeText(getContext(), "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
-    	return m.find();
-    }
-    
-    private boolean checkToken(){
-    	String token = getToken();
-    	if(TextUtils.isEmpty(token)){
-    		Toast.makeText(getContext(), "验证码不能为空", Toast.LENGTH_SHORT).show();
-    		return false;
-    	}
-    	if(token.trim().length()>8||token.trim().length()<3){
-    		Toast.makeText(getContext(), "验证码长度不正确", Toast.LENGTH_SHORT).show();
-    		return false;
-    	}
-    	return true;
-    	
-    }
-    
-    
+		}
+		String regExp = "^[1]([3][0-9]{1}|59|58|88|89)[0-9]{8}$";
+		Pattern p = Pattern.compile(regExp);
+		Matcher m = p.matcher(number);
+		Toast.makeText(getContext(), "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
+		return m.find();
+	}
+
+	private boolean checkToken() {
+		String token = getToken();
+		if (TextUtils.isEmpty(token)) {
+			Toast.makeText(getContext(), "验证码不能为空", Toast.LENGTH_SHORT).show();
+			return false;
+		}
+		if (token.trim().length() > 8 || token.trim().length() < 3) {
+			Toast.makeText(getContext(), "验证码长度不正确", Toast.LENGTH_SHORT).show();
+			return false;
+		}
+		return true;
+
+	}
+
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		super.onClick(v);
 		if (v == btn_token) {
-			checkNumber ();
+
+			if (checkNumber()) {
+
+			}
+
 		}
-		if(v==btn_confirm){
-			checkToken();
-			
+		if (v == btn_confirm) {
+			if (checkToken()) {
+				showDialog(getActivity());
+			}
+
 		}
 	}
 
