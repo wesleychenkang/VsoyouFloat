@@ -2,7 +2,7 @@ package com.vsoyou.sdk.vscenter.view.person;
 
 import android.view.View;
 
-import com.vsoyou.sdk.ParamChain;
+import com.vsoyou.sdk.vscenter.ParamChain;
 
 public interface ILayoutView {
 	/***

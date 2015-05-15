@@ -8,11 +8,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.vsoyou.sdk.ParamChain;
-import com.vsoyou.sdk.ParamChain.KeyGlobal;
-import com.vsoyou.sdk.protocols.ActivityControlInterface;
-import com.vsoyou.sdk.vscenter.FloatWindowManager;
-import com.vsoyou.sdk.vscenter.ParamChainImpl;
+import com.vsoyou.sdk.vscenter.ParamChain;
+import com.vsoyou.sdk.vscenter.ParamChain.KeyGlobal;
+import com.vsoyou.sdk.vscenter.protocols.ActivityControlInterface;
+import com.vsoyou.sdk.vscenter.service.FloatWindowService;
 import com.vsoyou.sdk.vscenter.view.person.ILayoutHost;
 import com.vsoyou.sdk.vscenter.view.person.ILayoutHost.KeyILayoutHost;
 import com.vsoyou.sdk.vscenter.view.person.ILayoutView;
@@ -166,13 +165,13 @@ public class PersonCenterActivity extends Activity {
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-		FloatWindowManager.disPlayCenterView(getApplicationContext(), -1);
+		FloatWindowService.disPlayCenterView(getApplicationContext(), -1);
 	}
 
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		FloatWindowManager.disPlayCenterView(getApplicationContext(), -1);
+		FloatWindowService.disPlayCenterView(getApplicationContext(), -1);
 	}
 }

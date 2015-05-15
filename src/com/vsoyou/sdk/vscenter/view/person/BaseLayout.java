@@ -16,9 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.vsoyou.sdk.ParamChain;
-import com.vsoyou.sdk.ParamChain.KeyGlobal;
-import com.vsoyou.sdk.protocols.ActivityControlInterface;
+import com.vsoyou.sdk.vscenter.ParamChain;
+import com.vsoyou.sdk.vscenter.ParamChain.KeyGlobal;
+import com.vsoyou.sdk.vscenter.protocols.ActivityControlInterface;
 import com.vsoyou.sdk.vscenter.util.BitmapCache;
 import com.vsoyou.sdk.vscenter.util.MetricUtil;
 import com.vsoyou.sdk.vscenter.view.person.ILayoutHost.KeyILayoutHost;
@@ -82,12 +82,13 @@ public abstract class BaseLayout extends LinearLayout implements
 		rv.addView(title, lp);
 
 		title.setBackgroundDrawable(BitmapCache.getNinePatchDrawable(context,
-				"top.9.png"));
+				"toolbar.9.png"));
 		txt_title = new TextView(context);
 		txt_title.setText("个人中心");
 		txt_title.setPadding(0, 10, 0, 10);
 		txt_title.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 25f);
-		txt_title.setTextColor(Color.rgb(245, 245, 245));
+		//txt_title.setTextColor(Color.rgb(245, 245, 245));
+		txt_title.setTextColor(Color.parseColor("#016ADE"));
 		// tv.setTextColor(Color.parseColor("#fe501b"));
 		txt_title.setGravity(Gravity.CENTER);
 		txt_title.setSingleLine();
@@ -134,7 +135,7 @@ public abstract class BaseLayout extends LinearLayout implements
 		}
 
 		// 下标题栏
-		FrameLayout title_buttom = new FrameLayout(context);
+		FrameLayout title_buttom = new FrameLayout(context); 
 		FrameLayout.LayoutParams lp_buttom = new FrameLayout.LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT,
 				Gravity.BOTTOM);
@@ -192,17 +193,17 @@ public abstract class BaseLayout extends LinearLayout implements
     	return this;
     }
 	@Override
-	public boolean onExit() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	@Override
 	public ParamChain getEnv() {
 		// TODO Auto-generated method stub
 		return mEnv;
 	}
 	
+	@Override
+	public boolean onExit() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	@Override
 	public boolean isExitEnabled(boolean isBack) {
 		// TODO Auto-generated method stub

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
-import com.vsoyou.sdk.ParamChain;
+import com.vsoyou.sdk.vscenter.ParamChain;
 
 public class RecordLayoutView extends BaseLayout{
 

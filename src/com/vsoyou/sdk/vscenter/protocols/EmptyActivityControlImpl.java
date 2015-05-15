@@ -1,4 +1,4 @@
-package com.vsoyou.sdk.protocols;
+package com.vsoyou.sdk.vscenter.protocols;
 
 import android.app.Activity;
 import android.app.Dialog;

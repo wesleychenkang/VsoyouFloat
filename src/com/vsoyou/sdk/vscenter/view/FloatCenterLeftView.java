@@ -22,8 +22,8 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.androidfloat.R;
-import com.vsoyou.sdk.vscenter.FloatWindowManager;
-import com.vsoyou.sdk.vscenter.PersonCenterManager;
+import com.vsoyou.sdk.vscenter.service.FloatCenterService;
+import com.vsoyou.sdk.vscenter.service.FloatWindowService;
 import com.vsoyou.sdk.vscenter.util.BitmapCache;
 import com.vsoyou.sdk.vscenter.util.MetricUtil;
 
@@ -201,7 +201,7 @@ public class FloatCenterLeftView extends LinearLayout implements
 	}
 
 	private void updatePostion() {
-		FloatWindowManager.disPlayCenterView(getContext(), 1);
+		FloatWindowService.disPlayCenterView(getContext(), 1);
 	}
 
 	private int getStatusBarHeight() {
@@ -222,16 +222,16 @@ public class FloatCenterLeftView extends LinearLayout implements
 	@Override
 	public void onClick(View arg0) {
 		if (arg0 == txt_person) {
-			FloatWindowManager.hideFloatView(getContext());
-			PersonCenterManager.getInstance().startPersonCenter(getContext());
+			FloatWindowService.hideFloatView(getContext());
+			FloatCenterService.getInstance().startPersonCenter(getContext());
 		} else if (arg0 == imag) {
 			updatePostion();
 		} else if (arg0 == txt_forum) {
-			FloatWindowManager.hideFloatView(getContext());
-			PersonCenterManager.getInstance().startForumCenter(getContext());
+			FloatWindowService.hideFloatView(getContext());
+			FloatCenterService.getInstance().startForumCenter(getContext());
 		} else if (arg0 == txt_quetion) {
-			FloatWindowManager.hideFloatView(getContext());
-			PersonCenterManager.getInstance().startQuetionCenter(getContext());
+			FloatWindowService.hideFloatView(getContext());
+			FloatCenterService.getInstance().startQuetionCenter(getContext());
 		}
 	}
 }

@@ -1,6 +1,6 @@
 package com.example.androidfloat;
 
-import com.vsoyou.sdk.SdkManager;
+import com.vsoyou.sdk.vscenter.FloatWindowManager;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -45,7 +45,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View arg0) {
 		if (arg0.getId() == R.id.button1) {
-			SdkManager.getSdkManagerInstance(this).startCenter(this);
+			FloatWindowManager.getSdkManagerInstance(this).startCenter(this);
 
 		}
 	}

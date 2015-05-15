@@ -18,12 +18,12 @@ import com.vsoyou.sdk.vscenter.util.BitmapCache;
 import com.vsoyou.sdk.vscenter.util.MetricUtil;
 import com.vsoyou.sdk.vscenter.view.person.ILayoutHost.KeyILayoutHost;
 
-public class PersonLayoutView extends BaseLayout {
+public class PersonLayoutVerticalView extends BaseLayout {
 	private String[] img = { "phone.png", "email.png", "password.png",
 			"customer.png", "record.png" };
 	private String[] dll = { "手机", "邮箱", "修改密码", "联系客服", "充值记录"};
 
-	public PersonLayoutView(Context context, ParamChain chain) {
+	public PersonLayoutVerticalView(Context context, ParamChain chain) {
 		super(context, chain);
 		super.initUI(context);
 	}
@@ -33,7 +33,7 @@ public class PersonLayoutView extends BaseLayout {
 		FrameLayout sub = (FrameLayout) getView_subject(ctx);
 		LinearLayout all = new LinearLayout(ctx);
 		sub.addView(all, new FrameLayout.LayoutParams(LP_MM));
-		all.setOrientation(HORIZONTAL);
+		all.setOrientation(VERTICAL);
 		createLeftView(all, ctx);
 		createCenterLine(all, ctx);
 		createRightView(all, ctx);
@@ -46,13 +46,13 @@ public class PersonLayoutView extends BaseLayout {
 
 	private void createCenterLine(LinearLayout all, Context ctx) {
 		LinearLayout l = new LinearLayout(ctx);
-		l.setPadding(0, MetricUtil.getDip(ctx, 40), 0,
-				MetricUtil.getDip(ctx, 40));
+		l.setPadding(MetricUtil.getDip(ctx, 20), MetricUtil.getDip(ctx, 20), MetricUtil.getDip(ctx, 20),
+				MetricUtil.getDip(ctx, 20));
 		View view = new View(ctx);
 		view.setBackgroundColor(Color.rgb(235, 235, 235));
-		LayoutParams lp_view = new LayoutParams(LayoutParams.WRAP_CONTENT,
-				LayoutParams.MATCH_PARENT);
-		lp_view.width = 3;
+		LayoutParams lp_view = new LayoutParams(LayoutParams.MATCH_PARENT,
+				LayoutParams.WRAP_CONTENT);
+		lp_view.height = 3;
 		lp_view.gravity = Gravity.CENTER;
 		l.addView(view, lp_view);
 		all.addView(l, lp_view);
@@ -60,52 +60,66 @@ public class PersonLayoutView extends BaseLayout {
 
 	private void createLeftView(LinearLayout all, Context ctx) {
 		LinearLayout lay = new LinearLayout(ctx);
-		lay.setOrientation(VERTICAL);
-		lay.setGravity(Gravity.CENTER);
+		lay.setOrientation(HORIZONTAL);
 		LayoutParams lp_lay = new LayoutParams(LP_MM);
-		lp_lay.weight = 0.7f;
+		lp_lay.weight = 0.8f;
 		all.addView(lay, lp_lay);
-
+       
+		LinearLayout l_imge = new LinearLayout(ctx);
+		l_imge.setGravity(Gravity.CENTER);
+		
+		LayoutParams lp_img = new LayoutParams(LP_MM);
+		lp_img.weight = 0.6f;
+		lay.addView(l_imge,lp_img);
+		
 		ImageView img_icon = new ImageView(ctx);
 		img_icon.setBackgroundDrawable(BitmapCache.getDrawable(ctx, "icon.png"));
 		LayoutParams lp_icon = new LayoutParams(LP_WW);
 		lp_icon.height = MetricUtil.getDip(ctx, 75);
 		lp_icon.width = MetricUtil.getDip(ctx, 75);
-		lay.addView(img_icon, lp_icon);
-
+		l_imge.addView(img_icon, lp_icon);
+        
+		LinearLayout ly_name = new LinearLayout(ctx);
+		ly_name.setOrientation(VERTICAL);
+		ly_name.setGravity(Gravity.CENTER|Gravity.LEFT);
+		LayoutParams lp_name = new LayoutParams(LP_MM);
+		lp_name.weight = 0.4f;
+	    lay.addView(ly_name,lp_name);
 		TextView txt_name = new TextView(ctx);
 		txt_name.setText("威搜游账号登录");
 		txt_name.setPadding(0, MetricUtil.getDip(ctx, 15), 0, MetricUtil.getDip(ctx, 10));
 		txt_name.setTextColor(Color.parseColor("#484848"));
-		lay.addView(txt_name, new LayoutParams(LP_WW));
+		ly_name.addView(txt_name, new LayoutParams(LP_WW));
 
 		TextView txt_count = new TextView(ctx);
 		txt_count.setText("13632570627");
 		txt_count.setPadding(0, MetricUtil.getDip(ctx, 10), 0, MetricUtil.getDip(ctx, 10));
 		txt_count.setTextColor(Color.parseColor("#484848"));
 		txt_count.setBackgroundDrawable(BitmapCache.getNinePatchDrawable(ctx, "gray_block.9.png"));
-		lay.addView(txt_count, new LayoutParams(LP_WW));
+		ly_name.addView(txt_count, new LayoutParams(LP_WW));
 
 	}
 
 	private void createRightView(LinearLayout rv, Context ctx) {
-		LinearLayout all = new LinearLayout(ctx);
+		ScrollView scroll = new ScrollView(ctx);
 		LayoutParams lp_lay = new LayoutParams(LP_MM);
-		lp_lay.weight = 0.3f;
-		rv.addView(all, lp_lay);
-		//rv.setBackgroundDrawable(BitmapCache.getNinePatchDrawable(ctx, "person_black.9.png"));
-		all.setPadding(MetricUtil.getDip(ctx, 40),
-				MetricUtil.getDip(ctx, 30), MetricUtil.getDip(ctx, 40),
+		lp_lay.weight = 0.2f;
+		rv.addView(scroll, lp_lay);
+		rv.setBackgroundDrawable(BitmapCache.getNinePatchDrawable(ctx, "person_black.9.png"));
+		scroll.setPadding(MetricUtil.getDip(ctx, 0),
+				MetricUtil.getDip(ctx, 30), MetricUtil.getDip(ctx, 0),
 				MetricUtil.getDip(ctx, 30));
-        ScrollView scroll = new ScrollView(ctx);
-        scroll.setBackgroundDrawable(BitmapCache.getNinePatchDrawable(ctx, "person_black.9.png"));
-        all.addView(scroll,LP_MM);
-		
+
+		LinearLayout all = new LinearLayout(ctx);
+		all.setOrientation(VERTICAL);
 		LinearLayout all_content = new LinearLayout(ctx);
 		all_content.setOrientation(VERTICAL);
-		LayoutParams lp_content = new LayoutParams(LP_MM);
-		scroll.addView(all_content, lp_content);
-		
+		LayoutParams llll = new LayoutParams(LP_MW);
+		all.addView(all_content, new LayoutParams(LP_MW));
+		all.setPadding(MetricUtil.getDip(ctx, 10), MetricUtil.getDip(ctx, 0),
+				MetricUtil.getDip(ctx, 10), MetricUtil.getDip(ctx, 0));
+		all_content.setBackgroundDrawable(BitmapCache.getNinePatchDrawable(ctx, "person_black.9.png"));
+		scroll.addView(all, llll);
 		for (int i = 0; i < img.length; i++) {
 			{
 				LinearLayout l_phone = new LinearLayout(ctx);
@@ -171,7 +185,7 @@ public class PersonLayoutView extends BaseLayout {
 				View view = new View(ctx);
 				view.setBackgroundColor(Color.rgb(235, 235, 235));
 				LayoutParams lp_view = new LayoutParams(LP_MW);
-				lp_view.height = 1;
+				lp_view.height = 3;
 				all_content.addView(view, lp_view);
                 }
 			}

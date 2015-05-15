@@ -6,22 +6,17 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.vsoyou.sdk.resources.ResourceLoader;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.NinePatch;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.NinePatchDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
-
 public class BitmapCache {
 
 	private static Map<String, Bitmap> table = new HashMap<String, Bitmap>();
@@ -36,7 +31,7 @@ public class BitmapCache {
 		InputStream in = null;
 		try {
 			//in = ctx.getAssets().open(path);
-			in = ResourceLoader.class.getClassLoader().getResourceAsStream(path);
+			in = BitmapCache.class.getClassLoader().getResourceAsStream(path);
 			Bitmap bitmap = BitmapFactory.decodeStream(in);
 			table.put(path, bitmap);
 			return bitmap;
@@ -163,7 +158,7 @@ public class BitmapCache {
 			String path) {
 		try {
 			String p = defuatPath + path;
-			Bitmap bm = BitmapFactory.decodeStream(ResourceLoader.class.getClassLoader().getResourceAsStream(p));
+			Bitmap bm = BitmapFactory.decodeStream(BitmapCache.class.getClassLoader().getResourceAsStream(p));
 			byte[] chunk = bm.getNinePatchChunk();
 			boolean isChunk = NinePatch.isNinePatchChunk(chunk);
 			if (!isChunk) {

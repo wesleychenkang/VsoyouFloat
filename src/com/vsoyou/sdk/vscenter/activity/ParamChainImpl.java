@@ -1,9 +1,9 @@
-package com.vsoyou.sdk.vscenter;
+package com.vsoyou.sdk.vscenter.activity;
 
 import java.util.HashMap;
 
 import com.example.androidfloat.BuildConfig;
-import com.vsoyou.sdk.ParamChain;
+import com.vsoyou.sdk.vscenter.ParamChain;
 /**
  * 参数链表、环境变量表
  * 

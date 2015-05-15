@@ -2,7 +2,7 @@ package com.vsoyou.sdk.vscenter.view.person;
 import java.lang.reflect.Constructor;
 import android.content.Context;
 
-import com.vsoyou.sdk.ParamChain;
+import com.vsoyou.sdk.vscenter.ParamChain;
 import com.vsoyou.sdk.vscenter.activity.LayoutType;
 
 

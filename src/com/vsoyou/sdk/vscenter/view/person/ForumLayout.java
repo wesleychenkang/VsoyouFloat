@@ -5,7 +5,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 
-import com.vsoyou.sdk.ParamChain;
+import com.vsoyou.sdk.vscenter.ParamChain;
 
 public class ForumLayout extends BaseLayout {
 

@@ -1,4 +1,4 @@
-package com.vsoyou.sdk;
+package com.vsoyou.sdk.vscenter;
 
 import java.util.HashMap;
 

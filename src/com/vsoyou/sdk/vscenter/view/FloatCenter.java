@@ -13,7 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.vsoyou.sdk.vscenter.FloatWindowManager;
+import com.vsoyou.sdk.vscenter.service.FloatWindowService;
 import com.vsoyou.sdk.vscenter.util.BitmapCache;
 
 public class FloatCenter extends LinearLayout implements OnClickListener {
@@ -92,9 +92,9 @@ public class FloatCenter extends LinearLayout implements OnClickListener {
 
 	private void updateView(int x, int y) {
 		if (lp.x > 0) {
-			FloatWindowManager.disPlayLeftView(getContext());
+			FloatWindowService.disPlayLeftView(getContext());
 		} else {
-			FloatWindowManager.disPlayRightView(getContext());
+			FloatWindowService.disPlayRightView(getContext());
 		}
 
 	}

@@ -1,6 +1,6 @@
 package com.vsoyou.sdk.vscenter.activity;
 
-import com.vsoyou.sdk.ParamChain.KeyGlobal;
+import com.vsoyou.sdk.vscenter.ParamChain.KeyGlobal;
 
 
 class KeyLayoutName implements KeyGlobal{

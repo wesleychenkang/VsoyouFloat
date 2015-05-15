@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.vsoyou.sdk.ParamChain;
+import com.vsoyou.sdk.vscenter.ParamChain;
 import com.vsoyou.sdk.vscenter.util.BitmapCache;
 import com.vsoyou.sdk.vscenter.util.MetricUtil;
 public class CustomerLayout extends BaseLayout{
@@ -25,7 +25,7 @@ public class CustomerLayout extends BaseLayout{
       FrameLayout sub = (FrameLayout)getView_subject(ctx);
       sub.setPadding(MetricUtil.getDip(ctx, 10), MetricUtil.getDip(ctx, 30), MetricUtil.getDip(ctx, 10), 0);
       LinearLayout all = new LinearLayout(ctx);
-      all.setBackgroundDrawable(BitmapCache.getNinePatchDrawable(ctx, "black_white.9.png"));
+      all.setBackgroundDrawable(BitmapCache.getNinePatchDrawable(ctx, "person_black.9.png"));
       all.setOrientation(VERTICAL);
       LayoutParams lp_all = new LayoutParams(LP_MW);
       lp_all.gravity = Gravity.TOP;

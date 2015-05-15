@@ -1,24 +1,24 @@
-package com.vsoyou.sdk.vscenter;
+package com.vsoyou.sdk.vscenter.service;
 
 import android.content.Context;
 import android.content.Intent;
 
-import com.vsoyou.sdk.ParamChain;
-import com.vsoyou.sdk.ParamChain.KeyGlobal;
+import com.vsoyou.sdk.vscenter.ParamChain;
+import com.vsoyou.sdk.vscenter.ParamChain.KeyGlobal;
 import com.vsoyou.sdk.vscenter.activity.LayoutType;
 import com.vsoyou.sdk.vscenter.activity.PersonCenterActivity;
 
-public class PersonCenterManager {
+public class FloatCenterService {
 	 private  ParamChain ev;
-	 private  static PersonCenterManager personManager;
-	 public static PersonCenterManager getInstance(){
+	 private  static FloatCenterService personManager;
+	 public static FloatCenterService getInstance(){
 		 if(personManager==null){
-			 personManager = new PersonCenterManager();
+			 personManager = new FloatCenterService();
 		 }
 		 return personManager;
 		 
 	 }
-	 private  PersonCenterManager(){
+	 private  FloatCenterService(){
 		 ev = PersonCenterActivity.GET_GLOBAL_PARAM_CHAIN();
 	 }
 	
@@ -28,7 +28,7 @@ public class PersonCenterManager {
     	intent.putExtra(KeyGlobal.KEY_UINAME, type.key());
     	chain.add(KeyGlobal.LAYOUT_TYPE, type);
     	ctx.getApplicationContext().startActivity(intent);
-    	FloatWindowManager.hideFloatView(ctx);
+    	FloatWindowService.hideFloatView(ctx);
     	return true;
     }
     /**
